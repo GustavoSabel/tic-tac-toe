@@ -1,5 +1,7 @@
-import { Request, Response } from 'express';
-import { BadRequest } from 'http-errors';
+import {Request, Response} from 'express';
+import {BadRequest} from 'http-errors';
+import GameService from '../services/game.service';
+import gameValidator from '../validators/game.validator';
 
 export default class GameController {
   /**
@@ -22,12 +24,14 @@ export default class GameController {
    * - 200: {GameIdDTO}
    * - 400: If consumer passed a bad request.
    * - 500: Internal error occured.
-   *
-   * @param {Request} req http request
-   * @param {Response} res http response
    */
   static async newGame(req: Request, res: Response) {
-    // TODO
+    if (gameValidator(req.body)) {
+      const gameDto = await GameService.newGame(req.body);
+      res.send(gameDto);
+    } else {
+      res.send(gameValidator.errors).sendStatus(400);
+    }
   }
 
   /**

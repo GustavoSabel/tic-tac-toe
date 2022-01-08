@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   Entity,
   JoinColumn,
@@ -9,15 +10,15 @@ import 'reflect-metadata';
 import Player from './player.entity';
 
 @Entity({name: 'games'})
-export default class Game {
+export default class Game extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({name: 'start_time'})
   startTime: Date;
 
-  @Column({name: 'end_time'})
-  endTime: Date;
+  @Column({name: 'end_time', nullable: true})
+  endTime?: Date;
 
   @Column()
   rows: number;
