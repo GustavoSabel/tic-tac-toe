@@ -1,5 +1,5 @@
 # Use latest version of node
-FROM node:16.4
+FROM node:16.13.1
 
 # Create app directory
 WORKDIR /treez-take-home

@@ -8,11 +8,6 @@ import {
 import 'reflect-metadata';
 import Player from './player.entity';
 
-/**
- * Game Entity to represent a tic-tac-toe game in the database.
- *
- * @author TopherThomas
- */
 @Entity({name: 'games'})
 export default class Game {
   @PrimaryGeneratedColumn()

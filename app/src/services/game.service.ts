@@ -1,12 +1,6 @@
 import {GameStatusDTO} from '../dtos/gamestatus.dto';
 import {GameIdDTO} from '../dtos/gameid.dto';
 
-/**
- * Game Service
- * Business Logic for handling games.
- *
- * @author TopherThomas
- */
 export default class GameService {
   static async gameStatus(gameId: number): Promise<GameStatusDTO> {
     throw new Error('Not Implemented');

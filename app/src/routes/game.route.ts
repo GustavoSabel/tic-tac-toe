@@ -1,12 +1,6 @@
 import express from 'express';
 import GameController from '../controllers/game.controller';
 
-/**
- * Game Routes
- *
- * @author TopherThomas
- */
-
 const router = express.Router();
 
 /* GET create new game. */

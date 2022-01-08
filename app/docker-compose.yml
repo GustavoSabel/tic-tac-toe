@@ -1,8 +1,8 @@
-version: "3.7"
+version: "3.9"
 services:
   postgres:
     container_name: ${DATABASE_CONTAINER_NAME}
-    image: postgres
+    image: postgres:14.1
     environment:
       # Note,these vars are set in volume/data intialization.
       # If you want to change these values, you will need to

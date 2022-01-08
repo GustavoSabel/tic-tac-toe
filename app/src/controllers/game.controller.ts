@@ -1,12 +1,6 @@
-import {Request, Response} from 'express';
-import {BadRequest} from 'http-errors';
+import { Request, Response } from 'express';
+import { BadRequest } from 'http-errors';
 
-/**
- * Game Controller
- * Handles web requests and responses.
- *
- * @author TopherThomas
- */
 export default class GameController {
   /**
    * Get Game Status

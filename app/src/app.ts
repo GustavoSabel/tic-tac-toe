@@ -5,12 +5,6 @@ import dotenv from 'dotenv';
 import {createConnection} from 'typeorm';
 
 /**
- * Tic-Tac-Toe Service
- *
- * @author TopherThomas
- */
-
-/**
  * Server function.
  */
 export const createServer = () => {
