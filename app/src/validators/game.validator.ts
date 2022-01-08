@@ -12,7 +12,7 @@ const newGameValidator = ajv.compile<newGameData>(newGameSchema);
 
 const placeTokenSchema = {
   properties: {
-    playerId: {type: 'int32'},
+    player: {type: 'int32'},
     row: {type: 'int32'},
     col: {type: 'int32'},
   },

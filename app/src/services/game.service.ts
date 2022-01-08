@@ -11,7 +11,7 @@ type NewGameArgs = {
 
 type PlaceTokenArgs = {
   gameId: number;
-  playerId: number;
+  player: number;
   row: number;
   col: number;
 };
@@ -45,11 +45,8 @@ export default class GameService {
       throw new BadRequest('This game is finished. Please create a new game');
     }
 
-    if (
-      args.playerId !== game.playerOne.id &&
-      args.playerId !== game.playerTwo.id
-    ) {
-      throw new BadRequest('Invalid user to this game');
+    if (args.player !== 1 && args.player !== 2) {
+      throw new BadRequest('User should be 1 or 2');
     }
 
     if (args.col < 0 || args.col > 2) {
@@ -59,29 +56,25 @@ export default class GameService {
       throw new BadRequest('Invalid row position');
     }
 
-    const currentPlayerNumber = game.playerOne.id === args.playerId ? 1 : 2;
-    const currentPlayer =
-      game.playerOne.id === args.playerId ? game.playerOne : game.playerTwo;
+    const currentPlayer = args.player === 1 ? game.playerOne : game.playerTwo;
 
-    if (game.lastPlayed === currentPlayerNumber) {
-      throw new BadRequest(`Player ${currentPlayerNumber} already made a move`);
+    if (game.lastPlayed === args.player) {
+      throw new BadRequest(`Player ${args.player} already made a move`);
     }
     if (game.getBoardValue(args.row, args.col)) {
       throw new BadRequest('This position already has been used');
     }
 
-    game.setBoardValue(args.row, args.col, currentPlayerNumber.toString());
+    game.setBoardValue(args.row, args.col, args.player.toString());
     const newBoard = game.board.map(x => x);
-    game.lastPlayed = currentPlayerNumber;
+    game.lastPlayed = args.player;
     game.numberOfMoves += 1;
 
-    let message = `Player ${currentPlayer.name} places a token in row ${
+    let message = `Player ${currentPlayer.name} placed the token in row ${
       args.row + 1
     } and col ${args.col + 1}`;
-    if (
-      this.checkIfPlayerWins(currentPlayerNumber.toString() as '1' | '2', game)
-    ) {
-      game.winners.push(currentPlayerNumber.toString());
+    if (this.checkIfPlayerWins(args.player.toString() as '1' | '2', game)) {
+      game.winners.push(args.player.toString());
       game.cleanBoard();
       game.numberOfMoves = 0;
       game.lastPlayed = undefined;
@@ -95,13 +88,13 @@ export default class GameService {
       }
     }
 
-    const numberOfVictoriesOfCurrentPlayer = game.winners.reduce(
-      (p, winner) => (winner === currentPlayerNumber.toString() ? p + 1 : p),
-      0
+    const numberOfVictoriesOfCurrentPlayer = this.calcNumberOfVictotiesOfPlayer(
+      game,
+      args.player.toString()
     );
     if (numberOfVictoriesOfCurrentPlayer >= game.neededToWin) {
       game.endTime = new Date();
-      game.finalWinner = currentPlayerNumber;
+      game.finalWinner = args.player;
       message = `PLAYER ${currentPlayer.name.toUpperCase()} WINS ${
         game.neededToWin
       } TIMES!!! HE IS THE WINNER!! THE BEST PLAYER EVER!! Game over`;
@@ -117,6 +110,13 @@ export default class GameService {
       board: this.beautifyBoard(newBoard),
       winners: game.winners,
     };
+  }
+
+  private static calcNumberOfVictotiesOfPlayer(game: Game, player: string) {
+    return game.winners.reduce(
+      (p, winner) => (winner === player.toString() ? p + 1 : p),
+      0
+    );
   }
 
   private static beautifyBoard(board: string[]) {

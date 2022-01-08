@@ -41,7 +41,7 @@ export default class GameController {
   /**
    * Place token for a game.
    *
-   * - 200: Id succesful.
+   * - 200: If succesful.
    * - 400: If consumer passed a bad request.
    * - 500: Internal error occured.
    */
