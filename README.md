@@ -49,7 +49,7 @@ This is a tic-tac-toe API
           "_ _ 1",
           "_ 1 2",
           "_ _ 1"
-      ], // Return in this format to be easier to visualize the request
+      ], // Return in this format to be easier to view
       "winners": ["1", "1", "2"] // Players that already win one match
   }  
   ```
