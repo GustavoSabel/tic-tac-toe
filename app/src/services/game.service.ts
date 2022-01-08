@@ -1,20 +1,28 @@
 import {GameStatusDTO} from '../dtos/gamestatus.dto';
 import {GameIdDTO} from '../dtos/gameid.dto';
 import Game from '../entities/game.entity';
-import PlayerService from './player.service';
+import Player from '../entities/player.entity';
 
 type NewGameArgs = {
-  player1: string;
-  player2: string;
+  player1Id: number;
+  player2Id: number;
 };
+
+type PlaceTokenArgs = {
+  gameId: number;
+  playerId: number;
+  row: number;
+  col: number;
+};
+
 export default class GameService {
   static async gameStatus(gameId: number): Promise<GameStatusDTO> {
     throw new Error('Not Implemented');
   }
 
   static async newGame(args: NewGameArgs): Promise<GameIdDTO> {
-    const player1 = await PlayerService.getOrCreate(args.player1);
-    const player2 = await PlayerService.getOrCreate(args.player2);
+    const player1 = await Player.findOneOrFail(args.player1Id);
+    const player2 = await Player.findOneOrFail(args.player2Id);
 
     const newGame = new Game();
     newGame.startTime = new Date();
@@ -28,16 +36,11 @@ export default class GameService {
     newGame.winners = [];
     await newGame.save();
     return {
-      game_id: newGame.id,
+      gameId: newGame.id,
     };
   }
 
-  static async placeToken(
-    gameId: number,
-    playerId: number,
-    row: number,
-    col: number
-  ) {
+  static async placeToken(args: PlaceTokenArgs) {
     throw new Error('Not Implemented');
   }
 }

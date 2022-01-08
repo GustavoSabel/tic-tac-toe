@@ -1,16 +1,24 @@
-import Ajv from 'ajv';
 import {JTDDataType} from 'ajv/dist/core';
+import ajv from './ajv.instance';
 
-const ajv = new Ajv();
-const schema = {
+const newGameSchema = {
   properties: {
-    player1: {type: 'string'},
-    player2: {type: 'string'},
+    player1Id: {type: 'int32'},
+    player2Id: {type: 'int32'},
   },
 } as const;
-type MyData = JTDDataType<typeof schema>;
-const gameValidator = ajv.compile<MyData>(schema);
+type newGameData = JTDDataType<typeof newGameSchema>;
+const newGameValidator = ajv.compile<newGameData>(newGameSchema);
 
-console.log('created gameValidator');
+const placeTokenSchema = {
+  properties: {
+    gameId: {type: 'int32'},
+    playerId: {type: 'int32'},
+    row: {type: 'int32'},
+    col: {type: 'int32'},
+  },
+} as const;
+type placeTokenData = JTDDataType<typeof placeTokenSchema>;
+const placeTokenValidator = ajv.compile<placeTokenData>(placeTokenSchema);
 
-export default gameValidator;
+export {newGameValidator, placeTokenValidator};

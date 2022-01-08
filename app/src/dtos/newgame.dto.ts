@@ -1,4 +1,4 @@
 export interface NewGameDTO {
-  player_1: number;
-  player_2: number;
+  player1Id: number;
+  player2Id: number;
 }

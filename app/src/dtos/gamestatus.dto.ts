@@ -6,7 +6,7 @@ export enum Outcome {
 }
 
 export interface GameStatusDTO {
-  game_id: number;
+  gameId: number;
   players: PlayerDTO[];
   outcome: Outcome;
   winner?: number[];

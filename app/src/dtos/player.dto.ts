@@ -1,4 +1,4 @@
 export interface PlayerDTO {
-  player_id?: number;
+  playerId?: number;
   name: string;
 }
