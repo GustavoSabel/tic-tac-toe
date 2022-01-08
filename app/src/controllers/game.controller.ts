@@ -26,11 +26,15 @@ export default class GameController {
    * - 500: Internal error occured.
    */
   static async newGame(req: Request, res: Response) {
-    if (newGameValidator(req.body)) {
-      const gameDto = await GameService.newGame(req.body);
-      res.send(gameDto);
-    } else {
-      res.status(400).send(newGameValidator.errors);
+    try {
+      if (newGameValidator(req.body)) {
+        const gameDto = await GameService.newGame(req.body);
+        res.send(gameDto);
+      } else {
+        res.status(400).send(newGameValidator.errors);
+      }
+    } catch (e) {
+      GameController.handleError(e, res);
     }
   }
 
@@ -42,29 +46,27 @@ export default class GameController {
    * - 500: Internal error occured.
    */
   static async placeToken(req: Request, res: Response) {
-    if (placeTokenValidator(req.body)) {
-      const gameDto = await GameService.placeToken(req.body);
-      res.send(gameDto);
-    } else {
-      res.status(400).send(placeTokenValidator.errors);
+    try {
+      if (placeTokenValidator(req.body)) {
+        const game = await GameService.placeToken({
+          ...req.body,
+          gameId: Number.parseInt(req.params.gameId),
+        });
+        res.send(game);
+      } else {
+        res.status(400).send(placeTokenValidator.errors);
+      }
+    } catch (e) {
+      GameController.handleError(e, res);
     }
   }
 
-  /**
-   * Handle errors thrown from the service.
-   */
   static handleError(e: unknown, res: Response) {
     console.log('Error Occured', e);
     if (e instanceof BadRequest) {
-      // If bad request, we will let the user know what they did wrong.
-      res.status(400);
-      res.send(e.message);
+      res.status(400).send(e.message);
     } else {
-      // All internal errors will give a generic message.
-      // This way we do no give away impementation details or
-      // allow the user to know what went wrong.
-      res.status(500);
-      res.send('Internal Error Occured.');
+      res.status(500).send('Internal Error Occured.');
     }
   }
 }

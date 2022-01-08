@@ -1,7 +1,9 @@
 import {Request, Response} from 'express';
 import {PlayerDTO} from '../dtos/player.dto';
+import Player from '../entities/player.entity';
 import PlayerService from '../services/player.service';
 import {newPlayerValidator} from '../validators/player.validator';
+import {BadRequest} from 'http-errors';
 
 export default class PlayerController {
   /**
@@ -12,15 +14,40 @@ export default class PlayerController {
    * - 500: Internal error occured.
    */
   static async newPlayer(req: Request, res: Response) {
-    if (newPlayerValidator(req.body)) {
-      const player = await PlayerService.newPlayer(req.body.name);
-      const dto: PlayerDTO = {
-        playerId: player.id,
-        name: player.name,
-      };
-      res.send(dto);
+    try {
+      if (newPlayerValidator(req.body)) {
+        const player = await PlayerService.newPlayer(req.body.name);
+        const dto: PlayerDTO = {
+          playerId: player.id,
+          name: player.name,
+        };
+        res.send(dto);
+      } else {
+        res.status(400).send(newPlayerValidator.errors);
+      }
+    } catch (e) {
+      PlayerController.handleError(e, res);
+    }
+  }
+
+  static async getPlayers(req: Request, res: Response) {
+    try {
+      const players: PlayerDTO[] = (await Player.find()).map(x => ({
+        playerId: x.id,
+        name: x.name,
+      }));
+      res.send(players);
+    } catch (e) {
+      PlayerController.handleError(e, res);
+    }
+  }
+
+  static handleError(e: unknown, res: Response) {
+    console.log('Error Occured', e);
+    if (e instanceof BadRequest) {
+      res.status(400).send(e.message);
     } else {
-      res.status(400).send(newPlayerValidator.errors);
+      res.status(500).send('Internal Error Occured.');
     }
   }
 }
