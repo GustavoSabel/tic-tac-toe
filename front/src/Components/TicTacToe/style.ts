@@ -9,8 +9,10 @@ export const Container = styled.div`
 `;
 
 export const Game = styled.div`
-  width: 400px;
-  height: 400px;
-  border: white;
-  border-style: solid;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
 `;
