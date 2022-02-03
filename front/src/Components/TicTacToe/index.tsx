@@ -1,18 +1,19 @@
 import Field from "../Field";
+import Player from "../Player";
 import { Container, Game } from "./style";
 
 function TicTacToe() {
   return (
     <Container>
       <Game>
-        <Field>X</Field>
+        <Field><Player player='O'/></Field>
         <Field></Field>
-        <Field>X</Field>
+        <Field><Player player='X'/></Field>
         <Field></Field>
         <Field></Field>
-        <Field>O</Field>
+        <Field><Player player='X'/></Field>
         <Field></Field>
-        <Field>O</Field>
+        <Field><Player player='O'/></Field>
         <Field></Field>
       </Game>
     </Container>
