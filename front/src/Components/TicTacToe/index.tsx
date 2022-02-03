@@ -1,21 +1,40 @@
+import { useState } from "react";
 import Field from "../Field";
-import { PlayerO, PlayerX } from "../Player";
-import { Container, Game } from "./style";
+import Player from "../Player";
+import { CenterBlock, Container, CurrentPlayer, Game } from "./style";
+
+type PlayerSymbol = 'O' | 'X'
 
 function TicTacToe() {
+  const [currentPlayer, setCurrentPlayer] = useState<PlayerSymbol>('O')
+  const [game, setGame] = useState<(PlayerSymbol | ' ')[]>([
+    ' ', ' ', ' ',
+    ' ', ' ', ' ',
+    ' ', ' ', ' ',
+  ]);
+  const click = (index: number) => {
+    if (game[index] === ' ') {
+      const newGame = [...game]
+      newGame[index] = currentPlayer
+      setGame(newGame)
+      setCurrentPlayer(currentPlayer === 'O' ? 'X' : 'O')
+    }
+  }
   return (
     <Container>
-      <Game>
-        <Field><PlayerX /></Field>
-        <Field></Field>
-        <Field><PlayerX /></Field>
-        <Field></Field>
-        <Field></Field>
-        <Field><PlayerO /></Field>
-        <Field></Field>
-        <Field><PlayerO /></Field>
-        <Field></Field>
-      </Game>
+      <CenterBlock>
+        <Game>
+          {game.map((g, i) => (
+            <Field onClick={() => click(i)}>
+              {g === ' ' ? null : <Player player={g} />}
+            </Field>
+          ))}
+        </Game>
+        <CurrentPlayer>
+          <p>Current Player:</p>
+          <Player player={currentPlayer} />
+        </CurrentPlayer>
+      </CenterBlock>
     </Container>
   );
 }

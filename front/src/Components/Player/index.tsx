@@ -12,7 +12,5 @@ function Player({ player }: Args) {
     </Container>
   );
 }
-const PlayerX = () => Player({ player: 'X' })
-const PlayerO = () => Player({ player: 'O' })
 
-export { PlayerX, PlayerO };
+export default Player;

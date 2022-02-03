@@ -8,6 +8,12 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const CenterBlock = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
 export const Game = styled.div`
   width: 300px;
   height: 300px;
@@ -15,4 +21,9 @@ export const Game = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 10px;
+`;
+
+export const CurrentPlayer = styled.div`
+  color: white;
+  float: right;
 `;
