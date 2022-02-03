@@ -1,9 +1,8 @@
 import { useState } from "react";
 import Field from "../Field";
 import Player from "../Player";
+import { PlayerSymbol } from "../Player/PlayerSymbol";
 import { CenterBlock, Container, CurrentPlayer, Game } from "./style";
-
-type PlayerSymbol = 'O' | 'X'
 
 function TicTacToe() {
   const [currentPlayer, setCurrentPlayer] = useState<PlayerSymbol>('O')

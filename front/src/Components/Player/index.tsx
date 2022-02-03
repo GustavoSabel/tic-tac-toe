@@ -1,9 +1,10 @@
 import { Container } from "./style";
 import { ReactComponent as PlayerOSvg } from '../../assets/playerO.svg';
 import { ReactComponent as PlayerXSvg } from '../../assets/playerX.svg';
+import { PlayerSymbol } from "./PlayerSymbol";
 
 type Args = {
-  player: 'X' | 'O'
+  player: PlayerSymbol
 }
 function Player({ player }: Args) {
   return (
