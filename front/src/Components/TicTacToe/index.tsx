@@ -29,6 +29,7 @@ function TicTacToe() {
             </Field>
           ))}
         </Game>
+        <br/>
         <CurrentPlayer>
           <p>Current Player:</p>
           <Player player={currentPlayer} />

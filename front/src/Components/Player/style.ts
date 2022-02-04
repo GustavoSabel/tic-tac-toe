@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ReactComponent as PlayerOSvg } from '../../assets/playerO.svg';
 import { ReactComponent as PlayerXSvg } from '../../assets/playerX.svg';
-import { styleColors } from '../../assets/styleColors';
+import { styleColors } from '../../styles/styleColors';
 
 export const Container = styled.div`
   width: 50px;

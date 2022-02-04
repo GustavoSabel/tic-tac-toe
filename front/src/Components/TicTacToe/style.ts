@@ -26,4 +26,7 @@ export const Game = styled.div`
 export const CurrentPlayer = styled.div`
   color: white;
   float: right;
+  p {
+    margin-bottom: 10px;
+  }
 `;

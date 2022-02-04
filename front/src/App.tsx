@@ -1,11 +1,12 @@
-import { Container } from "./AppStyle";
 import TicTacToe from "./Components/TicTacToe";
+import CreateGlobalStyle from './styles/global'
 
 function App() {
   return (
-    <Container>
+    <>
+      <CreateGlobalStyle />
       <TicTacToe></TicTacToe>
-    </Container>
+    </>
   );
 }
 
