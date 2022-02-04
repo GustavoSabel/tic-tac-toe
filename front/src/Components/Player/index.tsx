@@ -9,7 +9,9 @@ type Args = {
 function Player({ player }: Args) {
   return (
     <Container>
-      {player === 'O' ? <PlayerOSvg /> : <PlayerXSvg />}
+      {player === 'O' 
+        ? <PlayerOSvg style={{ color: '#f2b237' }} /> 
+        : <PlayerXSvg style={{ color: '#2ec3bd' }} />}
     </Container>
   );
 }
