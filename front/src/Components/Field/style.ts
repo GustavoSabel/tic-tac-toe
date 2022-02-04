@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { styleColors } from '../../assets/styleColors';
 
 export const Container = styled.div`
   width: 90px;
   height: 90px;
-  background-color: #243844;
+  background-color: ${styleColors.field};
   border-radius: 10px;
   display: flex;
   align-items: center;

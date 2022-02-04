@@ -1,8 +1,11 @@
+import { Container } from "./AppStyle";
 import TicTacToe from "./Components/TicTacToe";
 
 function App() {
   return (
-    <TicTacToe></TicTacToe>
+    <Container>
+      <TicTacToe></TicTacToe>
+    </Container>
   );
 }
 
