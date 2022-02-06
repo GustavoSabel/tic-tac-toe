@@ -1,11 +1,12 @@
 import { useState } from "react";
 import Field from "../Field";
-import Player from "../Player";
+import GameStatus from "../GameStatus";
+import { GameStatusType } from "../Types/GameStatusType";
 import { PlayerSymbol } from "../Types/PlayerSymbol";
-import { CenterBlock, Container, CurrentPlayer, Game, NewGameButton } from "./style";
+import { CenterBlock, Container, Game, NewGameButton } from "./style";
 
 type Status = {
-  status: 'playerWin' | 'draw' | null
+  status: GameStatusType
   winner: PlayerSymbol | null,
   victory: ('W' | ' ')[]
 }
@@ -41,7 +42,7 @@ function TicTacToe() {
       ' ', ' ', ' ',
     ])
     setStatus({
-      status: null,
+      status: 'playing',
       winner: null,
       victory: [
         ' ', ' ', ' ',
@@ -53,6 +54,8 @@ function TicTacToe() {
   return (
     <Container>
       <CenterBlock>
+        <GameStatus status={status.status} currentPlayer={currentPlayer} winner={status.winner} />
+        <br/>
         <Game>
           {game.map((g, i) => (
             <Field
@@ -61,14 +64,11 @@ function TicTacToe() {
               playerStatus={status.status === 'playerWin' && status.victory[i] === 'W' ? 'winner' : 'normal'} />
           ))}
         </Game>
-        <br />
-        <CurrentPlayer>
-          <p>Current Player:</p>
-          <Player player={currentPlayer} />
-        </CurrentPlayer>
-        {(status.status === 'playerWin' || status.status === 'draw') && <>
-          <NewGameButton onClick={newGame}>New game</NewGameButton>
-        </>}
+        <br/>
+        {(status.status === 'playerWin' || status.status === 'draw') && 
+          <>
+            <NewGameButton onClick={newGame}>New game</NewGameButton>
+          </>}
       </CenterBlock>
     </Container>
   );

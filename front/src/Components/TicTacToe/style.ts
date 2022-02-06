@@ -12,6 +12,7 @@ export const Container = styled.div`
 export const CenterBlock = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
 `;
 
@@ -24,19 +25,10 @@ export const Game = styled.div`
   gap: 10px;
 `;
 
-export const CurrentPlayer = styled.div`
-  color: white;
-  float: right;
-  p {
-    margin-bottom: 10px;
-  }
-`;
-
 export const NewGameButton = styled.button`
   background-color: ${styleColors.yellow};
   border-style: none;
-  margin-top: 16px;
-  font-size: 25px;
-  padding: 5px;
+  font-size: 40px;
+  padding: 10px 30px;
   border-radius: 4px;
 `;
