@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleColors } from '../../styles/styleColors';
 
 export const Container = styled.div`
   width: 100%;
@@ -29,4 +30,13 @@ export const CurrentPlayer = styled.div`
   p {
     margin-bottom: 10px;
   }
+`;
+
+export const NewGameButton = styled.button`
+  background-color: ${styleColors.yellow};
+  border-style: none;
+  margin-top: 16px;
+  font-size: 25px;
+  padding: 5px;
+  border-radius: 4px;
 `;
