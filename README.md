@@ -57,9 +57,9 @@ This is a tic-tac-toe API
 
 ## How to execute 
 ### Run locally
-1. Run the command `npm install` to install the dependencies
-1. Create a **".env"** file. You can copy the file **".env.local.machine"** and rename it to **".env"**
-1. Run the command `npm run start`
+1. Run the command `yarn install` to install the dependencies
+1. Create a **".env"** file. You can copy the file **".env.local.machine"** and rename the copy to **".env"**
+1. Run the command `yarn dev`
 
 ### Run on docker
-Just the command `npm start docker-compose-up`
+Just the command `yarn docker-compose-up`
