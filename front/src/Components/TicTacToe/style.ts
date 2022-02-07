@@ -25,10 +25,18 @@ export const Game = styled.div`
   gap: 10px;
 `;
 
-export const NewGameButton = styled.button`
-  background-color: ${styleColors.yellow};
+export const Button = styled.button`
+  background-color: ${styleColors.white};
   border-style: none;
   font-size: 40px;
   padding: 10px 30px;
   border-radius: 4px;
+`;
+
+export const NewGameButton = styled(Button)`
+  background-color: ${styleColors.yellow};
+`;
+
+export const StartGameButton = styled(Button)`
+  background-color: ${styleColors.blue};
 `;

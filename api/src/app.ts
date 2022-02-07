@@ -20,6 +20,15 @@ export const createServer = () => {
 
   const app: Application = express();
 
+  const cors = require('cors');
+  app.use(cors());
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
+    app.use(cors());
+    next();
+  });
+
   // Setup Middleware
   app.use(express.json());
 

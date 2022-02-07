@@ -1,1 +1,1 @@
-export type GameStatusType = 'playing' | 'playerWin' | 'draw'
+export type GameStatusType = 'waitingToStart' | 'playing' | 'playerWin' | 'draw'
