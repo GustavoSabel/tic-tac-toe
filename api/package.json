@@ -9,9 +9,6 @@
     "clean": "gts clean",
     "compile": "tsc",
     "fix": "gts fix",
-    "prepare": "npm run compile",
-    "pretest": "npm run compile",
-    "posttest": "npm run lint",
     "docker-compose-build": "docker-compose --env-file .env.local.docker build",
     "docker-compose-up": "docker-compose --env-file .env.local.docker up"
   },
