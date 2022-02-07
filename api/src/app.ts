@@ -48,7 +48,7 @@ export const createServer = () => {
   });
 
   app.listen(port, () => {
-    console.debug(`Hello World app started on port ${port}`);
+    console.debug(`App started on port ${port}`);
   });
 };
 
@@ -56,12 +56,12 @@ export const createServer = () => {
  * Create connection to Database.
  * Then start Server.
  */
-console.log('Creating connection...');
+console.debug('Creating connection...');
 try {
   createConnection();
-  console.log('Conneciton created.');
+  console.debug('Conneciton created.');
   createServer();
 } catch (error) {
-  console.log('Error creating connection.');
-  console.log(error);
+  console.debug('Error creating connection.');
+  console.error(error);
 }
