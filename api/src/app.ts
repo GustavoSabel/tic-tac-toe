@@ -15,19 +15,12 @@ export const createServer = () => {
   const port = process.env.SERVER_PORT || 3001;
 
   const express = require('express');
-
   const indexRouter = require('./routes/index.route');
+  const cors = require('cors');
 
   const app: Application = express();
 
-  const cors = require('cors');
   app.use(cors());
-  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
-    app.use(cors());
-    next();
-  });
 
   // Setup Middleware
   app.use(express.json());
