@@ -9,9 +9,10 @@ import {
 } from 'typeorm';
 import 'reflect-metadata';
 import Player from './player.entity';
-import {NonePlayerType, PlayerType} from '../types/PlayerType';
+import {PlayerType} from '../types/PlayerType';
 import Movement from './movement.entity';
 import {BoardType} from '../types/BoardType';
+import Board from '../objects/board';
 
 @Entity({name: 'games'})
 export default class Game extends BaseEntity {
@@ -57,7 +58,7 @@ export default class Game extends BaseEntity {
   currentMatch: number;
 
   public cleanBoard() {
-    this.board = ['', '', '', '', '', '', '', '', ''];
+    this.board = Board.CreateEmptyBoard().BoardArray;
   }
 
   public newGame() {
@@ -65,17 +66,5 @@ export default class Game extends BaseEntity {
     this.numberOfMoves = 0;
     this.lastPlayed = undefined;
     this.currentMatch += 1;
-  }
-
-  private calcBoardPosition(row: number, col: number) {
-    return row * 3 + col;
-  }
-
-  public getBoardValue(row: number, col: number): NonePlayerType | PlayerType {
-    return this.board[this.calcBoardPosition(row, col)];
-  }
-
-  public setBoardValue(row: number, col: number, value: PlayerType) {
-    this.board[this.calcBoardPosition(row, col)] = value;
   }
 }

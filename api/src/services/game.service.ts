@@ -6,6 +6,7 @@ import {PlayerType} from '../types/PlayerType';
 import VictoryService from './victory.service';
 import Movement from '../entities/movement.entity';
 import {BoardType} from '../types/BoardType';
+import Board from '../objects/board';
 
 type NewGameArgs = {
   player1Id: number;
@@ -60,14 +61,16 @@ export default class GameService {
     if (game.lastPlayed === args.player) {
       throw new BadRequest(`Player ${args.player} already made a move`);
     }
-    if (game.getBoardValue(args.row, args.col)) {
+    const board = new Board(game.board);
+    if (board.getValue(args.row, args.col)) {
       throw new BadRequest('This position already has been used');
     }
 
-    game.setBoardValue(args.row, args.col, args.player);
-    const newBoard: BoardType = game.board.map(x => x);
+    board.setValue(args.row, args.col, args.player);
+    const newBoard: BoardType = [...board.BoardArray];
     game.lastPlayed = args.player;
     game.numberOfMoves += 1;
+    game.board = board.BoardArray;
 
     const movement = new Movement();
     movement.match = game.currentMatch;
@@ -75,7 +78,7 @@ export default class GameService {
     game.movements.push(movement);
 
     let message = '';
-    const victory = VictoryService.getVictory(args.player, game);
+    const victory = VictoryService.getVictory(args.player, board);
     if (victory) {
       game.newGame();
       game.winners.push(args.player);
@@ -102,7 +105,6 @@ export default class GameService {
     await game.save();
 
     return {
-      gameId: game.id,
       message,
       playerO: game.playerO.name,
       playerX: game.playerX.name,
