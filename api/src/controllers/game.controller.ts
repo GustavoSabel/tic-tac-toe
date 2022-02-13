@@ -1,30 +1,13 @@
 import {Request, Response} from 'express';
 import {BadRequest} from 'http-errors';
 import GameService from '../services/game.service';
+import {PlayerType} from '../types/PlayerType';
 import {
   newGameValidator,
   placeTokenValidator,
 } from '../validators/game.validator';
 
 export default class GameController {
-  /**
-   * Get Game Status
-   *
-   * - 200: {GameStatusDTO}
-   * - 400: If consumer passed a bad request.
-   * - 500: Internal error occured.
-   */
-  static async gameStatus(req: Request, res: Response) {
-    // TODO
-  }
-
-  /**
-   * Create a new game.
-   *
-   * - 200: {GameIdDTO}
-   * - 400: If consumer passed a bad request.
-   * - 500: Internal error occured.
-   */
   static async newGame(req: Request, res: Response) {
     try {
       if (newGameValidator(req.body)) {
@@ -38,18 +21,13 @@ export default class GameController {
     }
   }
 
-  /**
-   * Place token for a game.
-   *
-   * - 200: If succesful.
-   * - 400: If consumer passed a bad request.
-   * - 500: Internal error occured.
-   */
   static async placeToken(req: Request, res: Response) {
     try {
       if (placeTokenValidator(req.body)) {
         const game = await GameService.placeToken({
-          ...req.body,
+          col: req.body.col,
+          row: req.body.row,
+          player: req.body.player as PlayerType,
           gameId: Number.parseInt(req.params.gameId),
         });
         res.send(game);

@@ -4,10 +4,14 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import 'reflect-metadata';
 import Player from './player.entity';
+import {NonePlayerType, PlayerType} from '../types/PlayerType';
+import Movement from './movement.entity';
+import {BoardType} from '../types/BoardType';
 
 @Entity({name: 'games'})
 export default class Game extends BaseEntity {
@@ -27,38 +31,51 @@ export default class Game extends BaseEntity {
   numberOfMoves: number;
 
   @Column('simple-array')
-  board: string[];
+  board: BoardType;
 
   @ManyToOne(() => Player, {eager: true})
-  @JoinColumn({name: 'player_one_id'})
-  playerOne: Player;
+  @JoinColumn({name: 'player_o_id'})
+  playerO: Player;
 
   @ManyToOne(() => Player, {eager: true})
-  @JoinColumn({name: 'player_two_id'})
-  playerTwo: Player;
+  @JoinColumn({name: 'player_x_id'})
+  playerX: Player;
 
   @Column({name: 'last_played', nullable: true})
-  lastPlayed?: 1 | 2;
+  lastPlayed?: PlayerType;
 
   @Column('simple-array')
-  winners: string[];
+  winners: PlayerType[];
 
   @Column({name: 'final_winner', nullable: true})
-  finalWinner?: 1 | 2;
+  finalWinner?: PlayerType;
+
+  @OneToMany(() => Movement, movement => movement.game)
+  movements: Movement[];
+
+  @Column()
+  currentMatch: number;
 
   public cleanBoard() {
     this.board = ['', '', '', '', '', '', '', '', ''];
+  }
+
+  public newGame() {
+    this.cleanBoard();
+    this.numberOfMoves = 0;
+    this.lastPlayed = undefined;
+    this.currentMatch += 1;
   }
 
   private calcBoardPosition(row: number, col: number) {
     return row * 3 + col;
   }
 
-  public getBoardValue(row: number, col: number) {
+  public getBoardValue(row: number, col: number): NonePlayerType | PlayerType {
     return this.board[this.calcBoardPosition(row, col)];
   }
 
-  public setBoardValue(row: number, col: number, value: string) {
+  public setBoardValue(row: number, col: number, value: PlayerType) {
     this.board[this.calcBoardPosition(row, col)] = value;
   }
 }
