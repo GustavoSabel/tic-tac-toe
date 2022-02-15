@@ -1,11 +1,11 @@
-import express, {Request, Response} from 'express';
+import express, { Request, Response } from 'express';
 import GameRoute from './game.route';
 import PlayerRoute from './player.route';
 
 const router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
-  res.send({title: 'Hello World! 👋'});
+  res.send({ title: 'Hello World! 👋' });
 });
 
 router.use('/game', GameRoute);

@@ -9,53 +9,53 @@ import {
 } from 'typeorm';
 import 'reflect-metadata';
 import Player from './player.entity';
-import {PlayerType} from '../types/PlayerType';
+import { PlayerType } from '../types/PlayerType';
 import Movement from './movement.entity';
-import {BoardType} from '../types/BoardType';
+import { BoardType } from '../types/BoardType';
 import Board from '../ValueObjects/Board';
 
-@Entity({name: 'games'})
+@Entity({ name: 'games' })
 export default class Game extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number;
 
-  @Column({name: 'start_time'})
-  startTime: Date;
+  @Column({ name: 'start_time' })
+    startTime: Date;
 
-  @Column({name: 'end_time', nullable: true})
-  endTime?: Date;
-
-  @Column()
-  neededToWin: number;
+  @Column({ name: 'end_time', nullable: true })
+    endTime?: Date;
 
   @Column()
-  numberOfMoves: number;
+    neededToWin: number;
+
+  @Column()
+    numberOfMoves: number;
 
   @Column('simple-array')
-  board: BoardType;
+    board: BoardType;
 
-  @ManyToOne(() => Player, {eager: true})
-  @JoinColumn({name: 'player_o_id'})
-  playerO: Player;
+  @ManyToOne(() => Player, { eager: true })
+  @JoinColumn({ name: 'player_o_id' })
+    playerO: Player;
 
-  @ManyToOne(() => Player, {eager: true})
-  @JoinColumn({name: 'player_x_id'})
-  playerX: Player;
+  @ManyToOne(() => Player, { eager: true })
+  @JoinColumn({ name: 'player_x_id' })
+    playerX: Player;
 
-  @Column({name: 'last_played', nullable: true})
-  lastPlayed?: PlayerType;
+  @Column({ name: 'last_played', nullable: true })
+    lastPlayed?: PlayerType;
 
   @Column('simple-array')
-  winners: PlayerType[];
+    winners: PlayerType[];
 
-  @Column({name: 'final_winner', nullable: true})
-  finalWinner?: PlayerType;
+  @Column({ name: 'final_winner', nullable: true })
+    finalWinner?: PlayerType;
 
-  @OneToMany(() => Movement, movement => movement.game)
-  movements: Movement[];
+  @OneToMany(() => Movement, (movement) => movement.game)
+    movements: Movement[];
 
   @Column()
-  currentMatch: number;
+    currentMatch: number;
 
   public cleanBoard() {
     this.board = Board.CreateEmptyBoard().BoardArray;

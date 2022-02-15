@@ -1,5 +1,5 @@
-import {BoardType} from '../types/BoardType';
-import {NonePlayerType, PlayerType} from '../types/PlayerType';
+import { BoardType } from '../types/BoardType';
+import { NonePlayerType, PlayerType } from '../types/PlayerType';
 
 export default class Board {
   constructor(boardArray: BoardType) {
@@ -13,6 +13,7 @@ export default class Board {
   get BoardArray(): BoardType {
     return this._boardArray;
   }
+
   private _boardArray: BoardType;
 
   private calcPosition(row: number, col: number) {
@@ -45,7 +46,7 @@ export default class Board {
    * ```
    */
   public beautifyBoard(): string[] {
-    const beautyBoard = this.BoardArray.map(x => (!x ? '_' : x));
+    const beautyBoard = this.BoardArray.map((x) => (!x ? '_' : x));
     return [
       beautyBoard.slice(0, 3).join(' '),
       beautyBoard.slice(3, 6).join(' '),

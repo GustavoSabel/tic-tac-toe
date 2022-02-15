@@ -6,20 +6,20 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import 'reflect-metadata';
-import {PlayerType} from '../types/PlayerType';
+import { PlayerType } from '../types/PlayerType';
 import Game from './game.entity';
 
-@Entity({name: 'movements'})
+@Entity({ name: 'movements' })
 export default class Movement extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+    id: number;
 
   @Column()
-  player: PlayerType;
+    player: PlayerType;
 
   @Column()
-  match: number;
+    match: number;
 
-  @ManyToOne(() => Game, game => game.movements)
-  game: Game;
+  @ManyToOne(() => Game, (game) => game.movements)
+    game: Game;
 }

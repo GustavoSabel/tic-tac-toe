@@ -1,9 +1,9 @@
-import {Request, Response} from 'express';
-import {PlayerDTO} from '../dtos/player.dto';
+import { Request, Response } from 'express';
+import { BadRequest } from 'http-errors';
+import { PlayerDTO } from '../dtos/player.dto';
 import Player from '../entities/player.entity';
 import PlayerService from '../services/player.service';
-import {newPlayerValidator} from '../validators/player.validator';
-import {BadRequest} from 'http-errors';
+import { newPlayerValidator } from '../validators/player.validator';
 
 export default class PlayerController {
   /**
@@ -32,7 +32,7 @@ export default class PlayerController {
 
   static async getPlayers(req: Request, res: Response) {
     try {
-      const players: PlayerDTO[] = (await Player.find()).map(x => ({
+      const players: PlayerDTO[] = (await Player.find()).map((x) => ({
         playerId: x.id,
         name: x.name,
       }));

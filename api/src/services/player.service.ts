@@ -7,7 +7,8 @@ export default class PlayerService {
     await newPlayer.save();
     return newPlayer;
   }
-  static async get(id: number): Promise<Player> {
-    return await Player.findOneOrFail(id);
+
+  static get(id: number): Promise<Player> {
+    return Player.findOneOrFail(id);
   }
 }

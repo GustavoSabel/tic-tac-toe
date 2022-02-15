@@ -1,8 +1,8 @@
-import {GameIdDTO} from '../dtos/gameid.dto';
+import { BadRequest } from 'http-errors';
+import { GameIdDTO } from '../dtos/gameid.dto';
 import Game from '../entities/game.entity';
 import Player from '../entities/player.entity';
-import {BadRequest} from 'http-errors';
-import {PlayerType} from '../types/PlayerType';
+import { PlayerType } from '../types/PlayerType';
 import VictoryService from './victory.service';
 import Movement from '../entities/movement.entity';
 import Board from '../ValueObjects/Board';
@@ -93,7 +93,7 @@ export default class GameService {
 
     const numberOfVictoriesOfCurrentPlayer = this.calcNumberOfVictotiesOfPlayer(
       game,
-      args.player
+      args.player,
     );
     if (numberOfVictoriesOfCurrentPlayer >= game.neededToWin) {
       game.endTime = new Date();
@@ -107,7 +107,7 @@ export default class GameService {
       message,
       playerO: game.playerO.name,
       playerX: game.playerX.name,
-      victory: victory,
+      victory,
       match: game.currentMatch,
       board: newBoard.BoardArray,
       boardBeauty: newBoard.beautifyBoard(),
@@ -118,7 +118,7 @@ export default class GameService {
   private static calcNumberOfVictotiesOfPlayer(game: Game, player: PlayerType) {
     return game.winners.reduce(
       (p, winner) => (winner === player.toString() ? p + 1 : p),
-      0
+      0,
     );
   }
 

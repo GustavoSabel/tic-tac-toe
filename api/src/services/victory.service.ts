@@ -1,5 +1,5 @@
 import Board from '../ValueObjects/Board';
-import {PlayerType} from '../types/PlayerType';
+import { PlayerType } from '../types/PlayerType';
 
 type VictoryType = ('✅' | '⬛')[][];
 
@@ -51,9 +51,7 @@ export default class VictoryService {
     for (let i = 0; i < allVictories.length; i++) {
       const victory = allVictories[i];
       if (this.checkVictory(player, board, victory)) {
-        const boardArray = victory.flatMap(a =>
-          a.map(x => (x === '✅' ? player : ''))
-        );
+        const boardArray = victory.flatMap((a) => a.map((x) => (x === '✅' ? player : '')));
         return new Board(boardArray);
       }
     }
@@ -63,7 +61,7 @@ export default class VictoryService {
   private static checkVictory(
     player: PlayerType,
     board: Board,
-    victory: VictoryType
+    victory: VictoryType,
   ) {
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {

@@ -3,16 +3,20 @@ import VictoryService from './victory.service';
 
 describe('Check victory', () => {
   it('O should win', () => {
-    const board = new Board(['O', 'X', '', 'O', '', '', 'O', '', 'X']);
+    const board = new Board([
+      'O', 'X', '', 
+      'O', '', '', 
+      'O', '', 'X',
+    ]);
 
     const victory = VictoryService.getVictory('O', board);
 
-    const row1 = 'O _ _';
-    const row2 = 'O _ _';
-    const row3 = 'O _ _';
-    const rows = [row1, row2, row3];
     expect(victory).not.toBeNull();
-    expect(victory!.beautifyBoard()).toEqual(rows);
+    expect(victory!.beautifyBoard()).toEqual([
+      'O _ _', 
+      'O _ _', 
+      'O _ _',
+    ]);
   });
 
   it('X should win', () => {

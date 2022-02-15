@@ -1,7 +1,7 @@
-import {Request, Response} from 'express';
-import {BadRequest} from 'http-errors';
+import { Request, Response } from 'express';
+import { BadRequest } from 'http-errors';
 import GameService from '../services/game.service';
-import {PlayerType} from '../types/PlayerType';
+import { PlayerType } from '../types/PlayerType';
 import {
   newGameValidator,
   placeTokenValidator,
