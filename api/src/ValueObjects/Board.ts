@@ -32,4 +32,24 @@ export default class Board {
       this._boardArray[i] = '';
     }
   }
+
+  /**
+   *
+   * @returns
+   * ```js
+   * [
+   *  O _ X,
+   *  O X X,
+   *  O _ _,
+   * ]
+   * ```
+   */
+  public beautifyBoard(): string[] {
+    const beautyBoard = this.BoardArray.map(x => (!x ? '_' : x));
+    return [
+      beautyBoard.slice(0, 3).join(' '),
+      beautyBoard.slice(3, 6).join(' '),
+      beautyBoard.slice(6, 9).join(' '),
+    ];
+  }
 }

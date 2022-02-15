@@ -5,8 +5,7 @@ import {BadRequest} from 'http-errors';
 import {PlayerType} from '../types/PlayerType';
 import VictoryService from './victory.service';
 import Movement from '../entities/movement.entity';
-import {BoardType} from '../types/BoardType';
-import Board from '../objects/board';
+import Board from '../ValueObjects/Board';
 
 type NewGameArgs = {
   player1Id: number;
@@ -67,7 +66,7 @@ export default class GameService {
     }
 
     board.setValue(args.row, args.col, args.player);
-    const newBoard: BoardType = [...board.BoardArray];
+    const newBoard = new Board(board.BoardArray);
     game.lastPlayed = args.player;
     game.numberOfMoves += 1;
     game.board = board.BoardArray;
@@ -110,8 +109,8 @@ export default class GameService {
       playerX: game.playerX.name,
       victory: victory,
       match: game.currentMatch,
-      board: newBoard,
-      boardBeauty: this.beautifyBoard(newBoard),
+      board: newBoard.BoardArray,
+      boardBeauty: newBoard.beautifyBoard(),
       winners: game.winners,
     };
   }
@@ -121,15 +120,6 @@ export default class GameService {
       (p, winner) => (winner === player.toString() ? p + 1 : p),
       0
     );
-  }
-
-  private static beautifyBoard(board: BoardType) {
-    const beautyBoard = board.map(x => (!x ? '_' : x));
-    return [
-      beautyBoard.slice(0, 3).join(' '),
-      beautyBoard.slice(3, 6).join(' '),
-      beautyBoard.slice(6, 9).join(' '),
-    ];
   }
 
   private static allBoardIsFilled(game: Game) {

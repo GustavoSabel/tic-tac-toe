@@ -12,7 +12,7 @@ import Player from './player.entity';
 import {PlayerType} from '../types/PlayerType';
 import Movement from './movement.entity';
 import {BoardType} from '../types/BoardType';
-import Board from '../objects/board';
+import Board from '../ValueObjects/Board';
 
 @Entity({name: 'games'})
 export default class Game extends BaseEntity {
