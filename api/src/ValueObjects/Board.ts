@@ -38,11 +38,9 @@ export default class Board {
    *
    * @returns
    * ```js
-   * [
-   *  O _ X,
-   *  O X X,
-   *  O _ _,
-   * ]
+   * ['O _ X',
+   *  'O X X',
+   *  'O _ _']
    * ```
    */
   public beautifyBoard(): string[] {
@@ -52,5 +50,23 @@ export default class Board {
       beautyBoard.slice(3, 6).join(' '),
       beautyBoard.slice(6, 9).join(' '),
     ];
+  }
+
+  /**
+   * 
+   * @param board
+   * ```js
+   * ['O _ X',
+   *  'O X X',
+   *  'O _ _']
+   * ```
+   */
+  public static fromBeauty(board: string[]): Board {
+    const beautyBoard = board.flatMap(x => x.split(' ').map(cell => {
+      if(cell === 'O') return 'O';
+      if(cell === 'X') return 'X';
+      return '';
+    }))
+    return new Board(beautyBoard)
   }
 }

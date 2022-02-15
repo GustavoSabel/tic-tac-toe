@@ -11,6 +11,20 @@ describe('Board', () => {
     expect(board.beautifyBoard()).toEqual(rows);
   });
 
+  it('Create from beauty', () => {
+    const board = Board.fromBeauty([
+      'X _ O',
+      'O X _',
+      'O _ X',
+    ]);
+
+    expect(board.BoardArray).toEqual([
+      'X', '', 'O', 
+      'O', 'X', '', 
+      'O', '', 'X',
+    ]);
+  });
+
   it('Set value', () => {
     const board = Board.CreateEmptyBoard();
     board.setValue(0, 0, 'O');

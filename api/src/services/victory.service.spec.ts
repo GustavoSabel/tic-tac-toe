@@ -3,10 +3,10 @@ import VictoryService from './victory.service';
 
 describe('Check victory', () => {
   it('O should win', () => {
-    const board = new Board([
-      'O', 'X', '', 
-      'O', '', '', 
-      'O', '', 'X',
+    const board = Board.fromBeauty([
+      'O X O', 
+      'O _ X', 
+      'O X _',
     ]);
 
     const victory = VictoryService.getVictory('O', board);
@@ -20,7 +20,11 @@ describe('Check victory', () => {
   });
 
   it('X should win', () => {
-    const board = new Board(['X', 'O', '', 'O', 'X', '', '', '', 'X']);
+    const board = Board.fromBeauty([
+      'X X _', 
+      'O X X', 
+      'O O X',
+    ]);
 
     const victory = VictoryService.getVictory('X', board);
 
@@ -33,7 +37,11 @@ describe('Check victory', () => {
   });
 
   it('O should not win', () => {
-    const board = new Board(['X', 'O', '', 'O', 'X', '', '', '', 'X']);
+    const board = Board.fromBeauty([
+      'X X _', 
+      'O X X', 
+      'O O X',
+    ]);
 
     const victory = VictoryService.getVictory('O', board);
 
@@ -41,7 +49,11 @@ describe('Check victory', () => {
   });
 
   it('X should not win', () => {
-    const board = new Board(['O', 'X', '', 'O', '', '', 'O', '', 'X']);
+    const board = Board.fromBeauty([
+      'O X O', 
+      'O _ X', 
+      'O X _',
+    ]);
 
     const victory = VictoryService.getVictory('X', board);
 
