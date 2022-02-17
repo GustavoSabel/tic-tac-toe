@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import 'reflect-metadata';
 import createError from 'http-errors';
 import {
@@ -5,6 +6,7 @@ import {
 } from 'express';
 import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
+import routes from './routes/index.route';
 
 export const createServer = () => {
   dotenv.config();
@@ -12,7 +14,6 @@ export const createServer = () => {
   const port = process.env.SERVER_PORT || 3001;
 
   const express = require('express');
-  const indexRouter = require('./routes/index.route.ts');
   const cors = require('cors');
 
   const app: Application = express();
@@ -21,7 +22,7 @@ export const createServer = () => {
 
   app.use(express.json());
 
-  app.use('/', indexRouter);
+  app.use('/', routes);
 
   app.use((req: Request, res: Response, next: NextFunction) => {
     next(createError(404));
