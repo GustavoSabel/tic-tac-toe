@@ -1,4 +1,4 @@
-import Board from '../ValueObjects/Board';
+import Board from '@valueObjects/Board';
 import { PlayerType } from '../types/PlayerType';
 
 type VictoryType = ('✅' | '⬛')[][];

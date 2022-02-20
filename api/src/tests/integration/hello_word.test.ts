@@ -1,6 +1,6 @@
 import { Application } from 'express';
-import { chai, expect } from '../test_helper';
-import { getApp } from '../test_helper_integration';
+import { chai, expect } from '@tests/test_helper';
+import { getApp } from '@tests/test_helper_integration';
 
 describe('Hello World', function () {
   let app: Application

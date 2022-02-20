@@ -5,7 +5,7 @@ import Player from '../entities/player.entity';
 import { PlayerType } from '../types/PlayerType';
 import VictoryService from './victory.service';
 import Movement from '../entities/movement.entity';
-import Board from '../ValueObjects/Board';
+import Board from '@valueObjects/Board';
 
 type NewGameArgs = {
   player1Id: number;
