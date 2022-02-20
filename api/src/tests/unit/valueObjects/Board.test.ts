@@ -1,4 +1,5 @@
-import Board from '../ValueObjects/Board';
+import Board from '../../../ValueObjects/Board';
+import { expect } from '../../test_helper';
 
 describe('Board', () => {
   it('Create empty', () => {
@@ -8,7 +9,7 @@ describe('Board', () => {
     const row2 = '_ _ _';
     const row3 = '_ _ _';
     const rows = [row1, row2, row3];
-    expect(board.beautifyBoard()).toEqual(rows);
+    expect(board.beautifyBoard()).to.be.deep.equal(rows);
   });
 
   it('Create from beauty', () => {
@@ -18,7 +19,7 @@ describe('Board', () => {
       'O _ X',
     ]);
 
-    expect(board.BoardArray).toEqual([
+    expect(board.BoardArray).to.be.deep.equal([
       'X', '', 'O', 
       'O', 'X', '', 
       'O', '', 'X',
@@ -37,14 +38,14 @@ describe('Board', () => {
     const row2 = '_ O _';
     const row3 = 'O _ X';
     const rows = [row1, row2, row3];
-    expect(board.beautifyBoard()).toEqual(rows);
+    expect(board.beautifyBoard()).to.be.deep.equal(rows);
   });
 
   it('Get value', () => {
     const board = new Board(['', '', 'X', '', '', '', '', '', 'O']);
-    expect(board.getValue(0, 0)).toEqual('');
-    expect(board.getValue(0, 2)).toEqual('X');
-    expect(board.getValue(2, 2)).toEqual('O');
+    expect(board.getValue(0, 0)).to.be.deep.equal('');
+    expect(board.getValue(0, 2)).to.be.deep.equal('X');
+    expect(board.getValue(2, 2)).to.be.deep.equal('O');
   });
 
   it('Clean', () => {
@@ -56,7 +57,7 @@ describe('Board', () => {
     const row2 = '_ _ _';
     const row3 = '_ _ _';
     const rows = [row1, row2, row3];
-    expect(board.beautifyBoard()).toEqual(rows);
+    expect(board.beautifyBoard()).to.be.deep.equal(rows);
   });
 
   it('Beautify', () => {
@@ -66,6 +67,6 @@ describe('Board', () => {
     const row2 = 'O _ _';
     const row3 = 'O X _';
     const rows = [row1, row2, row3];
-    expect(board.beautifyBoard()).toEqual(rows);
+    expect(board.beautifyBoard()).to.be.deep.equal(rows);
   });
 });

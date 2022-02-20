@@ -1,7 +1,6 @@
 module.exports = {
   env: {
     es2021: true,
-    'jest/globals': true,
   },
   extends: [
     'plugin:@typescript-eslint/eslint-recommended',
@@ -23,13 +22,8 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
     'no-plusplus': 'off',
-    'jest/no-disabled-tests': 'error',
-    'jest/no-focused-tests': 'error',
-    'jest/no-identical-title': 'error',
-    'jest/prefer-to-have-length': 'error',
-    'jest/valid-expect': 'error',
     'node/no-unsupported-features/es-syntax': ['error', {
-      'ignores': ['modules']
+      'ignores': ['modules'],
     }],
     'node/no-missing-import': 'off',
     'object-curly-spacing': ['error', 'always'],
@@ -59,5 +53,13 @@ module.exports = {
       'error',
       'always-multiline',
     ],
+    "node/no-unpublished-import": ["error", {
+      "convertPath": [
+        {
+          "include": ["src/src/**/*"],
+          "exclude": ["src/tests/**/*"],
+        },
+      ],
+    }],
   },
 };

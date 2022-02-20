@@ -1,5 +1,6 @@
-import Board from '../ValueObjects/Board';
-import VictoryService from './victory.service';
+import Board from '../../../ValueObjects/Board';
+import VictoryService from '../../../services/victory.service';
+import { expect } from '../../test_helper';
 
 describe('Check victory', () => {
   it('O should win', () => {
@@ -11,8 +12,8 @@ describe('Check victory', () => {
 
     const victory = VictoryService.getVictory('O', board);
 
-    expect(victory).not.toBeNull();
-    expect(victory!.beautifyBoard()).toEqual([
+    expect(victory).to.not.be.empty;
+    expect(victory!.beautifyBoard()).to.be.deep.equal([
       'O _ _', 
       'O _ _', 
       'O _ _',
@@ -32,8 +33,8 @@ describe('Check victory', () => {
     const row2 = '_ X _';
     const row3 = '_ _ X';
     const rows = [row1, row2, row3];
-    expect(victory).not.toBeNull();
-    expect(victory!.beautifyBoard()).toEqual(rows);
+    expect(victory).to.not.be.null;
+    expect(victory!.beautifyBoard()).to.be.deep.equal(rows);
   });
 
   it('O should not win', () => {
@@ -45,7 +46,7 @@ describe('Check victory', () => {
 
     const victory = VictoryService.getVictory('O', board);
 
-    expect(victory).toBeNull();
+    expect(victory).to.be.null;
   });
 
   it('X should not win', () => {
@@ -57,6 +58,6 @@ describe('Check victory', () => {
 
     const victory = VictoryService.getVictory('X', board);
 
-    expect(victory).toBeNull();
+    expect(victory).to.be.null;
   });
 });

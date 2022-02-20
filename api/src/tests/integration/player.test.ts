@@ -1,23 +1,18 @@
-import assert from 'assert';
-import supertest from 'supertest'
 import { appPromise } from '../../app'
+import { chai, expect } from '../test_helper';
 
 // https://blog.logrocket.com/unit-and-integration-testing-for-node-js-apps/
 // https://mochajs.org/#getting-started
-describe('Player', () => {
-  it('should create a new player', (done) => {
-    supertest(appPromise)
+describe('Player', function () {
+  it('should create a new player', function (done) {
+    chai
+      .request(appPromise)
       .post('/player')
       .send({ name: 'Joao' })
-      .expect(200)
-      .end((err, resp) => {
-        if (err) {
-          console.log(resp.body)
-          done(err)
-        }
-        console.log('resp.body', resp.body);
-        assert.strictEqual(resp.body.name, 'Joao');
-        assert.notStrictEqual(resp.body.id, null);
+      .end((_, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.name).to.be.equal('Joao')
+        expect(res.body.id).to.be.not.null
         done();
       });
   });

@@ -1,18 +1,13 @@
-import assert from 'assert';
-import supertest from 'supertest'
-import { appPromise } from '../../app'
+import { appPromise } from '../../app';
+import { chai, expect } from '../test_helper';
 
 describe('Hello World', () => {
   it('Hello World', (done) => {
-    supertest(appPromise)
+    chai.request(appPromise)
       .get('/')
-      .expect(200)
-      .end((err, resp) => {
-        if (err) {
-          console.log(resp.body)
-          done(err)
-        }
-        assert.deepStrictEqual(resp.body, { title: 'Hello World! 👋' });
+      .end((_, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.deep.equal({ title: 'Hello World! 👋' });
         done();
       });
   });
