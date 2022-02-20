@@ -7,15 +7,13 @@ import {
 import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
 import routes from './routes/index.route';
-import def from 'ajv/dist/vocabularies/applicator/additionalItems';
+import express from 'express'
+import cors from 'cors'
 
 export const createServer = () => {
   dotenv.config();
 
   const port = process.env.SERVER_PORT || 3001;
-
-  const express = require('express');
-  const cors = require('cors');
 
   const app: Application = express();
 
@@ -54,10 +52,10 @@ export const createServer = () => {
 let appPromise: Application
 console.debug('Creating connection...');
 try {
-   createConnection()
-    console.debug('Creating server...');
-    appPromise = createServer();
-    console.debug('Server created')
+  createConnection()
+  console.debug('Creating server...');
+  appPromise = createServer();
+  console.debug('Server created')
 
 } catch (error) {
   console.debug('Error creating connection');

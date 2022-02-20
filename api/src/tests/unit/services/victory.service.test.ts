@@ -2,8 +2,8 @@ import Board from '../../../ValueObjects/Board';
 import VictoryService from '../../../services/victory.service';
 import { expect } from '../../test_helper';
 
-describe('Check victory', () => {
-  it('O should win', () => {
+describe('Check victory', function () {
+  it('O should win', function () {
     const board = Board.fromBeauty([
       'O X O', 
       'O _ X', 
@@ -20,7 +20,7 @@ describe('Check victory', () => {
     ]);
   });
 
-  it('X should win', () => {
+  it('X should win', function () {
     const board = Board.fromBeauty([
       'X X _', 
       'O X X', 
@@ -37,7 +37,7 @@ describe('Check victory', () => {
     expect(victory!.beautifyBoard()).to.be.deep.equal(rows);
   });
 
-  it('O should not win', () => {
+  it('O should not win', function () {
     const board = Board.fromBeauty([
       'X X _', 
       'O X X', 
@@ -49,7 +49,7 @@ describe('Check victory', () => {
     expect(victory).to.be.null;
   });
 
-  it('X should not win', () => {
+  it('X should not win', function () {
     const board = Board.fromBeauty([
       'O X O', 
       'O _ X', 

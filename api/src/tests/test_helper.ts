@@ -1,10 +1,9 @@
 import sinon from 'sinon'
 import chai from 'chai'
 import chaihttp from 'chai-http'
+import supertest from 'supertest'
 
-var expect = chai.expect
+const expect = chai.expect
 chai.use(chaihttp)
-
-var supertest = require("supertest");
 
 export { sinon, chai, expect, supertest } 

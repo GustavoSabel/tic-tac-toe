@@ -53,13 +53,14 @@ module.exports = {
       'error',
       'always-multiline',
     ],
-    "node/no-unpublished-import": ["error", {
-      "convertPath": [
-        {
-          "include": ["src/src/**/*"],
-          "exclude": ["src/tests/**/*"],
-        },
+    'node/no-unpublished-import': ['error', {
+      'allowModules': [
+        'sinon',
+        'chai',
+        'chai-http',
+        'supertest',
       ],
     }],
+    '@typescript-eslint/no-non-null-assertion': 'off',
   },
 };
