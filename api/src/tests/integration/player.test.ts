@@ -1,10 +1,16 @@
-import { appPromise } from '../../app'
+import { Application } from 'express';
 import { chai, expect } from '../test_helper';
+import { getApp } from '../test_helper_integration';
 
 describe('Player', function () {
+  let app: Application
+  before(async function () {
+    app = await getApp()
+  });
+  
   it('should create a new player', async function () {
     const res = await chai
-      .request(appPromise)
+      .request(app)
       .post('/player')
       .send({ name: 'Joao' });
     expect(res).to.have.status(200);

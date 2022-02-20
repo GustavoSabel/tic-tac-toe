@@ -49,14 +49,13 @@ export const createServer = () => {
   return app;
 };
 
-let appPromise: Application
+let appPromise: Promise<Application>
 console.debug('Creating connection...');
 try {
-  createConnection()
-  console.debug('Creating server...');
-  appPromise = createServer();
-  console.debug('Server created')
-
+  appPromise = createConnection().then(() => {
+    console.debug('Creating server...');
+    return createServer();
+  })
 } catch (error) {
   console.debug('Error creating connection');
   console.error(error);
