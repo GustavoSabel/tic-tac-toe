@@ -7,6 +7,7 @@ import {
 import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
 import routes from './routes/index.route';
+import def from 'ajv/dist/vocabularies/applicator/additionalItems';
 
 export const createServer = () => {
   dotenv.config();
@@ -41,17 +42,26 @@ export const createServer = () => {
     res.send('error');
   });
 
-  app.listen(port, () => {
-    console.debug(`App started on port ${port}`);
-  });
+  if (require.main === module) {
+    app.listen(port, () => {
+      console.debug(`App started on port ${port}`);
+    });
+  }
+
+  return app;
 };
 
+let appPromise: Application
 console.debug('Creating connection...');
 try {
-  createConnection();
-  console.debug('Conneciton created.');
-  createServer();
+   createConnection()
+    console.debug('Creating server...');
+    appPromise = createServer();
+    console.debug('Server created')
+
 } catch (error) {
-  console.debug('Error creating connection.');
+  console.debug('Error creating connection');
   console.error(error);
 }
+
+export { appPromise }

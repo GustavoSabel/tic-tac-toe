@@ -18,7 +18,7 @@ export default class PlayerController {
       if (newPlayerValidator(req.body)) {
         const player = await PlayerService.newPlayer(req.body.name);
         const dto: PlayerDTO = {
-          playerId: player.id,
+          id: player.id,
           name: player.name,
         };
         res.send(dto);
@@ -33,7 +33,7 @@ export default class PlayerController {
   static async getPlayers(req: Request, res: Response) {
     try {
       const players: PlayerDTO[] = (await Player.find()).map((x) => ({
-        playerId: x.id,
+        id: x.id,
         name: x.name,
       }));
       res.send(players);
@@ -43,10 +43,10 @@ export default class PlayerController {
   }
 
   static handleError(e: unknown, res: Response) {
-    console.log('Error Occured', e);
     if (e instanceof BadRequest) {
       res.status(400).send(e.message);
     } else {
+      console.error(e)
       res.status(500).send('Internal Error Occured.');
     }
   }

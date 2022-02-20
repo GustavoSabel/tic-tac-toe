@@ -4,4 +4,8 @@
   "files.eol": "\n",
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
+  "eslint.format.enable": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
 }

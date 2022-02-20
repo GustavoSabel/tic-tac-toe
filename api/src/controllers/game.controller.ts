@@ -40,7 +40,6 @@ export default class GameController {
   }
 
   static handleError(e: unknown, res: Response) {
-    console.log('Error Occured', e);
     if (e instanceof BadRequest) {
       res.status(400).send(e.message);
     } else {

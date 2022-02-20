@@ -4,8 +4,10 @@ module.exports = {
     'jest/globals': true,
   },
   extends: [
-    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:node/recommended',
+    'plugin:mocha/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -14,7 +16,7 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
-    'jest',
+    'mocha',
   ],
   rules: {
     'import/prefer-default-export': 'off',
