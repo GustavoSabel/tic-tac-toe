@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "Tic-Tac-Toe Service",
   "scripts": {
+    "test": "yarn test-mocha 'src/tests/**/*.test.ts'",
+    "test-int": "yarn test-mocha 'src/tests/integration/**/*.test.ts'",
+    "test-unit": "yarn test-mocha 'src/tests/unit/**/*.test.ts'",
     "test-mocha": "mocha -r ts-node/register -r tsconfig-paths/register",
-    "test-int": "yarn test-mocha 'src/tests/integration/**/*.ts'",
-    "test-unit": "yarn test-mocha 'src/tests/unit/**/*.ts'",
-    "test": "yarn test-mocha 'src/tests/**/*.ts'",
-    "dev": "nodemon",
-    "start": "tsc && node ./build/app.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register src/app.ts",
+    "devn": "nodemon",
+    "start": "yarn build && node ./build/app.js",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "eslint src/** --ext .ts",
     "validate": "tsc --noEmit",
     "docker-compose-build": "docker-compose --env-file .env.local.docker build",
@@ -59,6 +61,8 @@
     "sinon": "^13.0.1",
     "supertest": "^6.2.2",
     "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8",
+    "tsconfig-paths": "^3.12.0",
     "typescript": "^4.3.5"
   }
 }
