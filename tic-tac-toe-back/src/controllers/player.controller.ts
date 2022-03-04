@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { BadRequest } from 'http-errors';
-import { PlayerDTO } from '../dtos/player.dto';
-import Player from '../entities/player.entity';
-import PlayerService from '../services/player.service';
-import { newPlayerValidator } from '../validators/player.validator';
+import { PlayerDTO } from '@src/dtos/player.dto';
+import Player from '@src/entities/player.entity';
+import PlayerService from '@src/services/player.service';
+import { newPlayerValidator } from '@src/validators/player.validator';
 
 export default class PlayerController {
   /**

@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Tic-Tac-Toe Service",
   "scripts": {
-    "test": "yarn test-mocha 'src/tests/**/*.test.ts'",
-    "test-int": "yarn test-mocha 'src/tests/integration/**/*.test.ts'",
-    "test-unit": "yarn test-mocha 'src/tests/unit/**/*.test.ts'",
+    "test": "yarn test-mocha 'test/**/*.test.ts'",
+    "test-int": "yarn test-mocha 'test/integration/**/*.test.ts'",
+    "test-unit": "yarn test-mocha 'test/unit/**/*.test.ts'",
     "test-mocha": "mocha -r ts-node/register -r tsconfig-paths/register",
     "dev": "ts-node-dev -r tsconfig-paths/register src/app.ts",
     "devn": "nodemon",

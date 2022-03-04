@@ -1,11 +1,11 @@
 import { BadRequest } from 'http-errors';
-import { GameIdDTO } from '../dtos/gameid.dto';
-import Game from '../entities/game.entity';
-import Player from '../entities/player.entity';
-import { PlayerType } from '../types/PlayerType';
+import { GameIdDTO } from '@src/dtos/gameid.dto';
+import Game from '@src/entities/game.entity';
+import Player from '@src/entities/player.entity';
+import { PlayerType } from '@src/types/PlayerType';
 import VictoryService from './victory.service';
-import Movement from '../entities/movement.entity';
-import Board from '@valueObjects/Board';
+import Movement from '@src/entities/movement.entity';
+import Board from '@src/valueObjects/Board';
 
 type NewGameArgs = {
   player1Id: number;

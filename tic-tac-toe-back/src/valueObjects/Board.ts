@@ -1,5 +1,5 @@
-import { BoardType } from '../types/BoardType';
-import { NonePlayerType, PlayerType } from '../types/PlayerType';
+import { BoardType } from '@src/types/BoardType';
+import { NonePlayerType, PlayerType } from '@src/types/PlayerType';
 
 export default class Board {
   constructor(boardArray: BoardType) {

@@ -1,5 +1,5 @@
 import { Application } from 'express'
-import { appPromise } from '../app'
+import { appPromise } from '@src/app'
 
 let _app: Application | undefined
 

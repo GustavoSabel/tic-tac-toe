@@ -1,6 +1,6 @@
-import Board from '@valueObjects/Board';
-import VictoryService from '@services/victory.service';
-import { expect } from '@tests/test_helper';
+import Board from '@src/valueObjects/Board';
+import VictoryService from '@src/services/victory.service';
+import { expect } from '@test/test_helper';
 
 describe('Check victory', function () {
   it('O should win', function () {

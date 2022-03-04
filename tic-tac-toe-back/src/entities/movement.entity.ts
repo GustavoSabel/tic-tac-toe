@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import 'reflect-metadata';
-import { PlayerType } from '../types/PlayerType';
+import { PlayerType } from '@src/types/PlayerType';
 import Game from './game.entity';
 
 @Entity({ name: 'movements' })

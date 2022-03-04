@@ -1,5 +1,5 @@
-import Board from '@valueObjects/Board';
-import { expect } from '@tests/test_helper';
+import Board from '@src/valueObjects/Board';
+import { expect } from '@test/test_helper';
 
 describe('Board', function () {
   it('Create empty', function () {

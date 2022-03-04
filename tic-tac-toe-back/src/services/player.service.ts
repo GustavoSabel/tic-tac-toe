@@ -1,4 +1,4 @@
-import Player from '../entities/player.entity';
+import Player from '@src/entities/player.entity';
 
 export default class PlayerService {
   static async newPlayer(playerName: string): Promise<Player> {

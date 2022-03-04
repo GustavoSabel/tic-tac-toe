@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { BadRequest } from 'http-errors';
-import GameService from '../services/game.service';
-import { PlayerType } from '../types/PlayerType';
+import GameService from '@src/services/game.service';
+import { PlayerType } from '@src/types/PlayerType';
 import {
   newGameValidator,
   placeTokenValidator,
-} from '../validators/game.validator';
+} from '@src/validators/game.validator';
 
 export default class GameController {
   static async newGame(req: Request, res: Response) {
