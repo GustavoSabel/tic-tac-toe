@@ -1,45 +1,23 @@
 import { BadRequest } from 'http-errors';
-import { GameIdDTO } from '@src/dtos/gameid.dto';
 import Game from '@src/entities/game.entity';
-import Player from '@src/entities/player.entity';
 import { PlayerType } from '@src/types/PlayerType';
-import VictoryService from './victory.service';
 import Movement from '@src/entities/movement.entity';
 import Board from '@src/valueObjects/Board';
+import GameRepository from '../../repositories/GameRepository';
+import VictoryService from '@src/services/victory.service';
 
-type NewGameArgs = {
-  player1Id: number;
-  player2Id: number;
-};
-
-type PlaceTokenArgs = {
+type placeTokenRequest = {
   gameId: number;
   player: PlayerType;
   row: number;
   col: number;
 };
 
-export default class GameService {
-  static async newGame(args: NewGameArgs): Promise<GameIdDTO> {
-    const player1 = await Player.findOneOrFail(args.player1Id);
-    const player2 = await Player.findOneOrFail(args.player2Id);
-
-    const newGame = new Game();
-    newGame.startTime = new Date();
-    newGame.neededToWin = 3;
-    newGame.numberOfMoves = 0;
-    newGame.playerO = player1;
-    newGame.playerX = player2;
-    newGame.winners = [];
-    newGame.cleanBoard();
-    await newGame.save();
-    return {
-      gameId: newGame.id,
-    };
-  }
-
-  static async placeToken(args: PlaceTokenArgs) {
-    const game = await Game.findOneOrFail(args.gameId);
+export default class PlaceToken {
+  constructor(private gameRepository: GameRepository) { }
+    
+  async execute(args: placeTokenRequest) {
+    const game = await this.gameRepository.find(args.gameId);
     if (game.endTime) {
       throw new BadRequest('This game is finished. Please create a new game');
     }
@@ -101,7 +79,7 @@ export default class GameService {
       message = `PLAYER ${currentPlayer.name.toUpperCase()}`;
     }
 
-    await game.save();
+    this.gameRepository.save(game)
 
     return {
       message,
@@ -115,14 +93,14 @@ export default class GameService {
     };
   }
 
-  private static calcNumberOfVictotiesOfPlayer(game: Game, player: PlayerType) {
+  calcNumberOfVictotiesOfPlayer(game: Game, player: PlayerType) {
     return game.winners.reduce(
       (p, winner) => (winner === player.toString() ? p + 1 : p),
       0,
     );
   }
 
-  private static allBoardIsFilled(game: Game) {
+  allBoardIsFilled(game: Game) {
     for (let i = 0; i < game.board.length; i++) {
       if (!game.board[i]) {
         return false;
