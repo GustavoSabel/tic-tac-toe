@@ -13,7 +13,7 @@
     "build-start": "yarn build && node ./build/app.js",
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint src/** --ext .ts",
-    "validate": "tsc --noEmit",
+    "validate": "yarn lint && tsc --noEmit",
     "docker-compose-build": "docker-compose --env-file .env.local.docker build",
     "docker-compose-up": "docker-compose --env-file .env.local.docker up"
   },
