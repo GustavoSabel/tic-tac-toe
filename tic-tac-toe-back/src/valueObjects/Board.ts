@@ -1,51 +1,6 @@
 import { BoardType } from '@src/types/BoardType';
 import { NonePlayerType, PlayerType } from '@src/types/PlayerType';
-
-type VictoryType = ('✅' | '⬛')[][];
-
-const allVictories: VictoryType[] = [
-  [
-    ['✅', '✅', '✅'],
-    ['⬛', '⬛', '⬛'],
-    ['⬛', '⬛', '⬛'],
-  ],
-  [
-    ['⬛', '⬛', '⬛'],
-    ['✅', '✅', '✅'],
-    ['⬛', '⬛', '⬛'],
-  ],
-  [
-    ['⬛', '⬛', '⬛'],
-    ['⬛', '⬛', '⬛'],
-    ['✅', '✅', '✅'],
-  ],
-  [
-    ['✅', '⬛', '⬛'],
-    ['✅', '⬛', '⬛'],
-    ['✅', '⬛', '⬛'],
-  ],
-  [
-    ['⬛', '✅', '⬛'],
-    ['⬛', '✅', '⬛'],
-    ['⬛', '✅', '⬛'],
-  ],
-  [
-    ['⬛', '⬛', '✅'],
-    ['⬛', '⬛', '✅'],
-    ['⬛', '⬛', '✅'],
-  ],
-  [
-    ['✅', '⬛', '⬛'],
-    ['⬛', '✅', '⬛'],
-    ['⬛', '⬛', '✅'],
-  ],
-  [
-    ['⬛', '⬛', '✅'],
-    ['⬛', '✅', '⬛'],
-    ['✅', '⬛', '⬛'],
-  ],
-];
-
+import Victory, { AllVictories } from './Victory';
 
 export default class Board {
   constructor(boardArray: BoardType) {
@@ -116,27 +71,13 @@ export default class Board {
     return new Board(beautyBoard)
   }
 
-  public checkIfPlayerHasAVictory(player: PlayerType): Board | null {
-    for (let i = 0; i < allVictories.length; i++) {
-      const victory = allVictories[i];
-      if (this.checkVictory(player, victory)) {
-        const boardArray = victory.flatMap((a) => a.map((x) => (x === '✅' ? player : '')));
-        return new Board(boardArray);
+  public checkIfPlayerHasAVictory(player: PlayerType): Victory | null {
+    for (let i = 0; i < AllVictories.length; i++) {
+      const victory = AllVictories[i];
+      if (victory.checkIfPlayerHasThisVictory(player, this)) {
+        return victory
       }
     }
     return null;
-  }
-
-  private checkVictory(player: PlayerType, victory: VictoryType) {
-    for (let row = 0; row < 3; row++) {
-      for (let col = 0; col < 3; col++) {
-        if (victory[row][col] === '✅') {
-          if (this.getValue(row, col) !== player) {
-            return false;
-          }
-        }
-      }
-    }
-    return true;
   }
 }

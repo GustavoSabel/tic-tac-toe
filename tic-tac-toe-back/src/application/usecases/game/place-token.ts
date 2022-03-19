@@ -84,7 +84,7 @@ export default class PlaceToken {
       message,
       playerO: game.playerO.name,
       playerX: game.playerX.name,
-      victory,
+      victory: victory?.toBoard(args.player),
       match: game.currentMatch,
       board: newBoard.BoardArray,
       boardBeauty: newBoard.beautifyBoard(),
