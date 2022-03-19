@@ -4,7 +4,6 @@ import { PlayerType } from '@src/types/PlayerType';
 import Movement from '@src/entities/movement.entity';
 import Board from '@src/valueObjects/Board';
 import GameRepository from '../../repositories/GameRepository';
-import VictoryService from '@src/services/victory.service';
 
 type placeTokenRequest = {
   gameId: number;
@@ -55,7 +54,7 @@ export default class PlaceToken {
     game.movements.push(movement);
 
     let message = '';
-    const victory = VictoryService.getVictory(args.player, board);
+    const victory = board.checkIfPlayerHasAVictory(args.player);
     if (victory) {
       game.newGame();
       game.winners.push(args.player);

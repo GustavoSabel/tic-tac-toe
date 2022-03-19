@@ -1,5 +1,4 @@
 import Board from '@src/valueObjects/Board';
-import VictoryService from '@src/services/victory.service';
 import { expect } from '@test/test_helper';
 
 describe('Check victory', function () {
@@ -10,7 +9,7 @@ describe('Check victory', function () {
       'O X _',
     ]);
 
-    const victory = VictoryService.getVictory('O', board);
+    const victory = board.checkIfPlayerHasAVictory('O');
 
     expect(victory).to.not.be.empty;
     expect(victory!.beautifyBoard()).to.be.deep.equal([
@@ -27,7 +26,7 @@ describe('Check victory', function () {
       'O O X',
     ]);
 
-    const victory = VictoryService.getVictory('X', board);
+    const victory = board.checkIfPlayerHasAVictory('X');
 
     const row1 = 'X _ _';
     const row2 = '_ X _';
@@ -44,7 +43,7 @@ describe('Check victory', function () {
       'O O X',
     ]);
 
-    const victory = VictoryService.getVictory('O', board);
+    const victory = board.checkIfPlayerHasAVictory('O');
 
     expect(victory).to.be.null;
   });
@@ -56,7 +55,7 @@ describe('Check victory', function () {
       'O X _',
     ]);
 
-    const victory = VictoryService.getVictory('X', board);
+    const victory = board.checkIfPlayerHasAVictory('X');
 
     expect(victory).to.be.null;
   });
