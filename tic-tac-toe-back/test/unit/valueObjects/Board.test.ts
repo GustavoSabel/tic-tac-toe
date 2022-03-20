@@ -79,11 +79,11 @@ describe('Board', function () {
 
     const victory = board.checkIfPlayerHasAVictory('O');
 
-    expect(victory).to.not.be.empty;
-    expect(victory!.beautifyBoard()).to.be.deep.equal([
-      'O _ _', 
-      'O _ _', 
-      'O _ _',
+    expect(victory).to.not.be.null;
+    expect(victory!.board).to.be.deep.equal([
+      ['✅', '⬛', '⬛'],
+      ['✅', '⬛', '⬛'],
+      ['✅', '⬛', '⬛'],
     ]);
   });
 
@@ -96,12 +96,12 @@ describe('Board', function () {
 
     const victory = board.checkIfPlayerHasAVictory('X');
 
-    const row1 = 'X _ _';
-    const row2 = '_ X _';
-    const row3 = '_ _ X';
-    const rows = [row1, row2, row3];
     expect(victory).to.not.be.null;
-    expect(victory!.beautifyBoard()).to.be.deep.equal(rows);
+    expect(victory!.board).to.be.deep.equal([
+      ['✅', '⬛', '⬛'],
+      ['⬛', '✅', '⬛'],
+      ['⬛', '⬛', '✅'],
+    ]);
   });
 
   it('O should not win', function () {

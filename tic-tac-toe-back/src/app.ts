@@ -9,6 +9,7 @@ import { createConnection } from 'typeorm';
 import routes from './routes/index.route';
 import express from 'express'
 import cors from 'cors'
+import { ValidationError } from './core/errors/ValidationError';
 
 export const createServer = () => {
   dotenv.config();
@@ -27,19 +28,19 @@ export const createServer = () => {
     next(createError(404));
   });
 
-  interface Error {
-    message?: string;
-    status?: number;
-  }
+  app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    if(err instanceof ValidationError) {
+      res.status(400);
+      res.send({
+        errors: err.validations,
+      });
+      return;
+    }
 
-  app.use((err: Error, req: Request, res: Response) => {
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    res.status(err.status || 500);
-    res.send('error');
+    res.status(500);
+    res.send(req.app.get('env') === 'development' ? err : { message: 'Error' });
   });
-
+  
   if (require.main === module) {
     app.listen(port, () => {
       console.debug(`App started on port ${port}`);

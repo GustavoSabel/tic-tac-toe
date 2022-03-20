@@ -17,4 +17,11 @@ describe('Player', function () {
     expect(res.body.name).to.be.equal('Joao')
     expect(res.body.id).to.be.not.null
   });
+  
+  it('should fail when the name is not informed', async function () {
+    const res = await chai
+      .request(app)
+      .post('/player');
+    expect(res).to.have.status(400);
+  });
 });
