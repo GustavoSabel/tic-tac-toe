@@ -1,5 +1,5 @@
 import { JTDDataType } from 'ajv/dist/core';
-import ajv from './ajv.instance';
+import ajvInstance from './ajv.instance';
 
 const newGameSchema = {
   properties: {
@@ -8,7 +8,7 @@ const newGameSchema = {
   },
 } as const;
 type newGameData = JTDDataType<typeof newGameSchema>;
-const newGameValidator = ajv.compile<newGameData>(newGameSchema);
+const newGameValidator = ajvInstance.compile<newGameData>(newGameSchema);
 
 const placeTokenSchema = {
   properties: {
@@ -18,6 +18,6 @@ const placeTokenSchema = {
   },
 } as const;
 type placeTokenData = JTDDataType<typeof placeTokenSchema>;
-const placeTokenValidator = ajv.compile<placeTokenData>(placeTokenSchema);
+const placeTokenValidator = ajvInstance.compile<placeTokenData>(placeTokenSchema);
 
 export { newGameValidator, placeTokenValidator };

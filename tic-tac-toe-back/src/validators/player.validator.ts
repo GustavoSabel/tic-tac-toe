@@ -1,5 +1,5 @@
 import { JTDDataType } from 'ajv/dist/core';
-import ajv from './ajv.instance';
+import ajvInstance from './ajv.instance';
 
 const schema = {
   properties: {
@@ -7,6 +7,6 @@ const schema = {
   },
 } as const;
 type Data = JTDDataType<typeof schema>;
-const newPlayerValidator = ajv.compile<Data>(schema);
+const newPlayerValidator = ajvInstance.compile<Data>(schema);
 
 export { newPlayerValidator };

@@ -1,5 +1,7 @@
 import Ajv from 'ajv/dist/jtd';
 
-const ajv = new Ajv();
+const ajvInstance = new Ajv({
+  removeAdditional: true,
+});
 
-export default ajv;
+export default ajvInstance;
