@@ -9,13 +9,21 @@ import {
 } from 'typeorm';
 import 'reflect-metadata';
 import Player from './player.entity';
-import { PlayerType } from '../../types/PlayerType';
+import { NonePlayerType, PlayerType } from '../../types/PlayerType';
 import Movement from './movement.entity';
 import { BoardType } from '../../types/BoardType';
 import Board from '@src/domain/valueObjects/Board';
 
 @Entity({ name: 'games' })
 export default class Game extends BaseEntity {
+  constructor() {
+    super();
+    this.currentMatch = 1;
+    this.playerStartedCurrentMatch = 'O';
+    this.numberOfMoves = 0;
+    this.winners = [];
+    this.finalWinner = '';
+  }
   @PrimaryGeneratedColumn()
     id: number;
 
@@ -42,16 +50,19 @@ export default class Game extends BaseEntity {
   @JoinColumn({ name: 'player_x_id' })
     playerX: Player;
 
+  @Column({ name: 'player_started_current_match', nullable: true })
+    playerStartedCurrentMatch: PlayerType;
+
   @Column({ name: 'last_played', nullable: true })
-    lastPlayed?: PlayerType;
+    lastPlayed: PlayerType | NonePlayerType;
 
   @Column('simple-array')
     winners: PlayerType[];
 
   @Column({ name: 'final_winner', nullable: true })
-    finalWinner?: PlayerType;
+    finalWinner: PlayerType | NonePlayerType;
 
-  @OneToMany(() => Movement, (movement) => movement.game)
+  @OneToMany(() => Movement, (movement) => movement.game, { eager: true })
     movements: Movement[];
 
   @Column()
@@ -64,7 +75,8 @@ export default class Game extends BaseEntity {
   public newGame() {
     this.cleanBoard();
     this.numberOfMoves = 0;
-    this.lastPlayed = undefined;
+    this.lastPlayed = '';
     this.currentMatch += 1;
+    this.playerStartedCurrentMatch = this.playerStartedCurrentMatch === 'O' ? 'X' : 'O';
   }
 }

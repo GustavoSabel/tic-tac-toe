@@ -1,12 +1,12 @@
 import Player from "../Player";
-import { GameStatusType } from "../Types/GameStatusType";
-import { PlayerSymbol } from "../Types/PlayerSymbol";
+import { GameStatusType } from "../../Types/GameStatusType";
+import { PlayerType } from "../../Types/PlayerType";
 import { Container } from "./style";
 
 type Args = {
   status: GameStatusType
-  currentPlayer: PlayerSymbol
-  winner: PlayerSymbol | null
+  currentPlayer: PlayerType
+  winner: PlayerType | null
 }
 
 function GameStatus({ status, currentPlayer, winner }: Args) {

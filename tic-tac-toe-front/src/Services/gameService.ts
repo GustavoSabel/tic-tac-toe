@@ -1,27 +1,41 @@
+import { BoardType } from "../Types/BoardType";
+import { PlayerType } from "../Types/PlayerType";
 import api from "./api"
 
 export type NewGameContract = {
-  gameId: number,
+  gameId: number
+  board: BoardType
+  match: number
+  nextPlayer: PlayerType
 }
 
 type NewGameArgs = {
-  player1Id: number;
-  player2Id: number;
+  playerOId: number
+  playerXId: number
 };
 
 type PlateTokenArgs = {
-  player: number;
-  row: number;
-  col: number;
+  player: PlayerType
+  row: number
+  col: number
 };
+
+type PlaceNewTokenResponse = {
+  board: BoardType
+  match: number
+  victory: BoardType
+  nextPlayer: PlayerType
+  endOfGame: boolean
+  finalWinner: PlayerType
+}
 
 const gameService = {
   async newGame(args: NewGameArgs) : Promise<NewGameContract> {
-    const result = await api.post('/game/new', args)
+    const result = await api.post('/game', args)
     return result.data
   },
 
-  async plateToken(gameId: number, args: PlateTokenArgs) : Promise<NewGameContract> {
+  async placeToken(gameId: number, args: PlateTokenArgs) : Promise<PlaceNewTokenResponse> {
     const result = await api.post(`/game/${gameId}/placeToken`, args)
     return result.data
   }

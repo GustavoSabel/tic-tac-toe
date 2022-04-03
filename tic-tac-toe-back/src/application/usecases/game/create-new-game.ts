@@ -1,10 +1,19 @@
 import Game from '@src/domain/entities/game.entity';
+import { BoardType } from '@src/types/BoardType';
+import { PlayerType } from '@src/types/PlayerType';
 import GameRepository from '../../repositories/GameRepository';
 import PlayerRepository from '../../repositories/PlayerRepository';
 
 type CreateNewGameRequest = {
-  player1Id: number;
-  player2Id: number;
+  playerOId: number;
+  playerXId: number;
+}
+
+type NewGameResponseDTO = { 
+  gameId: number
+  board: BoardType
+  match: number
+  nextPlayer: PlayerType
 }
 
 export class CreateNewGame {
@@ -12,18 +21,23 @@ export class CreateNewGame {
     private gameRepository: GameRepository,
     private playerRepository: PlayerRepository) { }
 
-  async execute(args: CreateNewGameRequest): Promise<Game> {
-    const player1 = await this.playerRepository.find(args.player1Id);
-    const player2 = await this.playerRepository.find(args.player2Id);
+  async execute(args: CreateNewGameRequest): Promise<NewGameResponseDTO> {
+    const playerO = await this.playerRepository.find(args.playerOId);
+    const playerX = await this.playerRepository.find(args.playerXId);
 
     const newGame = new Game();
     newGame.startTime = new Date();
     newGame.neededToWin = 3;
-    newGame.numberOfMoves = 0;
-    newGame.playerO = player1;
-    newGame.playerX = player2;
-    newGame.winners = [];
+    newGame.playerO = playerO;
+    newGame.playerX = playerX;
     newGame.cleanBoard();
-    return await this.gameRepository.save(newGame)
+    const game = await this.gameRepository.save(newGame)
+
+    return {
+      gameId: game.id,
+      board: game.board,
+      match: game.currentMatch,
+      nextPlayer: newGame.playerStartedCurrentMatch,
+    }
   }
 }

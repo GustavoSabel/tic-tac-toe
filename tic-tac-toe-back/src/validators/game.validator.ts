@@ -3,8 +3,8 @@ import ajvInstance from './ajv.instance';
 
 const newGameSchema = {
   properties: {
-    player1Id: { type: 'int32' },
-    player2Id: { type: 'int32' },
+    playerOId: { type: 'int32' },
+    playerXId: { type: 'int32' },
   },
 } as const;
 type newGameData = JTDDataType<typeof newGameSchema>;

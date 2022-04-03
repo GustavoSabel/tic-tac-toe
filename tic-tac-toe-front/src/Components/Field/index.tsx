@@ -1,10 +1,10 @@
 import Player from "../Player";
-import { PlayerStatus } from "../Types/PlayerStatus";
-import { PlayerSymbol } from "../Types/PlayerSymbol";
+import { PlayerStatus } from "../../Types/PlayerStatus";
+import { PlayerType } from "../../Types/PlayerType";
 import { Container } from "./style";
 
 type Args = {
-  player?: PlayerSymbol
+  player?: PlayerType
   playerStatus: PlayerStatus
   onClick?: () => void
 }

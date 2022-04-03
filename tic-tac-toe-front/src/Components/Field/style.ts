@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { styleColors } from '../../styles/styleColors';
-import { PlayerStatus } from '../Types/PlayerStatus';
-import { PlayerSymbol } from '../Types/PlayerSymbol';
+import { PlayerStatus } from '../../Types/PlayerStatus';
+import { PlayerType } from '../../Types/PlayerType';
 
 type PlayerProps = {
   status: PlayerStatus
-  player?: PlayerSymbol
+  player?: PlayerType
 }
 export const Container = styled.div<PlayerProps>`
   width: 90px;

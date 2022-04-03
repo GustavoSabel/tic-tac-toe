@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { ReactComponent as PlayerOSvg } from '../../assets/playerO.svg';
 import { ReactComponent as PlayerXSvg } from '../../assets/playerX.svg';
 import { styleColors } from '../../styles/styleColors';
-import { PlayerStatus } from '../Types/PlayerStatus';
+import { PlayerStatus } from '../../Types/PlayerStatus';
 
 export const Container = styled.div`
   width: 50px;

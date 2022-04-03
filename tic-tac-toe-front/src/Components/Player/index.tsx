@@ -1,9 +1,9 @@
 import { Container, PlayerO, PlayerX } from "./style";
-import { PlayerSymbol } from "../Types/PlayerSymbol";
-import { PlayerStatus } from "../Types/PlayerStatus";
+import { PlayerType } from "../../Types/PlayerType";
+import { PlayerStatus } from "../../Types/PlayerStatus";
 
 type Args = {
-  player: PlayerSymbol
+  player: PlayerType
   status?: PlayerStatus
 }
 function Player({ player, status = 'normal' }: Args) {

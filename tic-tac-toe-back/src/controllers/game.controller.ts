@@ -13,7 +13,8 @@ import validate from '@src/core/validator/validate';
 export default class GameController {
   static async newGame(req: Request, res: Response) {
     const data = validate(newGameValidator, req.body)
-    const gameDto = await new CreateNewGame(new GameRepository(), new PlayerRepository()).execute(data);
+    const gameDto = await new CreateNewGame(new GameRepository(), new PlayerRepository())
+      .execute(data);
     res.send(gameDto);
   }
 

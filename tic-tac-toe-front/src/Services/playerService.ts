@@ -1,7 +1,7 @@
 import api from "./api"
 
 export type PlayerContract = {
-  playerId: number,
+  id: number,
   name: string,
 }
 

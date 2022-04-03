@@ -5,7 +5,7 @@ import asyncHandler from '@src/core/utils/asyncHandler';
 const router = express.Router();
 
 router.post('/:gameId/placeToken', asyncHandler(GameController.placeToken));
-router.post('/new', asyncHandler(GameController.newGame));
+router.post('/', asyncHandler(GameController.newGame));
 
 export default router;
 

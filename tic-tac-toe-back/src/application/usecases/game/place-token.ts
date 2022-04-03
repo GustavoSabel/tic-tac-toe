@@ -53,19 +53,23 @@ export default class PlaceToken {
     movement.player = args.player;
     game.movements.push(movement);
 
+    let nextPlayer: PlayerType
     let message = '';
     const victory = board.checkIfPlayerHasAVictory(args.player);
     if (victory) {
       game.newGame();
       game.winners.push(args.player);
       message = `Player ${currentPlayer.name} wins`;
+      nextPlayer = game.playerStartedCurrentMatch
     } else if (this.allBoardIsFilled(game)) {
       game.newGame();
       message = 'The game tied';
+      nextPlayer = game.playerStartedCurrentMatch
     } else {
       message = `Player ${currentPlayer.name} placed the token in row ${
         args.row + 1
       } and col ${args.col + 1}`;
+      nextPlayer = args.player === 'O' ? 'X' : 'O'
     }
 
     const numberOfVictoriesOfCurrentPlayer = this.calcNumberOfVictotiesOfPlayer(
@@ -78,17 +82,20 @@ export default class PlaceToken {
       message = `PLAYER ${currentPlayer.name.toUpperCase()}`;
     }
 
-    this.gameRepository.save(game)
+    await this.gameRepository.save(game)    
 
     return {
       message,
       playerO: game.playerO.name,
       playerX: game.playerX.name,
-      victory: victory?.toBoard(args.player),
+      nextPlayer,
+      victory: victory?.toBoard(args.player).BoardArray,
       match: game.currentMatch,
       board: newBoard.BoardArray,
       boardBeauty: newBoard.beautifyBoard(),
       winners: game.winners,
+      endOfGame: !!game.endTime,
+      finalWinner: game.finalWinner,
     };
   }
 

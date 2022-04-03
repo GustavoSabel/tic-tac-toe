@@ -11,7 +11,7 @@ import express from 'express'
 import cors from 'cors'
 import { ValidationError } from './core/errors/ValidationError';
 
-dotenv.config({ debug: true });
+dotenv.config();
 
 const createServer = () => {
   const port = process.env.SERVER_PORT || 3001;
@@ -29,6 +29,7 @@ const createServer = () => {
   });
 
   app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    console.error(err)
     if(err instanceof ValidationError) {
       res.status(400);
       res.send({
