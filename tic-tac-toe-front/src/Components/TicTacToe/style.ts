@@ -41,3 +41,7 @@ export const NewGameButton = styled(Button)`
 export const StartGameButton = styled(Button)`
   background-color: ${styleColors.blue};
 `;
+
+export const ButtonContainer = styled.div`
+  height: 68px;
+`

@@ -6,10 +6,12 @@ export const Container = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
+  align-items: flex-end;
+  height: 50px;
   p {
     color: ${styleColors.white};
-    margin-bottom: 10px;
     font-size: 40px;
+    line-height: 30px;
   }
 `;
 

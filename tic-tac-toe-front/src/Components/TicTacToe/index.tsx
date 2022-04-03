@@ -6,7 +6,7 @@ import GameStatus from "../GameStatus";
 import { BoardType } from "../../Types/BoardType";
 import { GameStatusType } from "../../Types/GameStatusType";
 import { PlayerType } from "../../Types/PlayerType";
-import { CenterBlock, Container, Game, NewGameButton, StartGameButton } from "./style";
+import { ButtonContainer, CenterBlock, Container, Game, NewGameButton, StartGameButton } from "./style";
 import Scoreboard from "../Scoreboard";
 import { NonePlayerType } from "../../Types/NonePlayerType";
 
@@ -103,13 +103,25 @@ function TicTacToe() {
     }))
   }
 
+  const ButtonChoice = () => {
+    switch (status.status) {
+      case 'winMatch':
+      case 'drawMatch':
+        return <NewGameButton onClick={newMatch}>New game</NewGameButton>
+      case 'waitingToStart':
+        return <StartGameButton onClick={startGame}>Start</StartGameButton>
+      case 'finished':
+        return <StartGameButton onClick={startGame}>Start a new Game</StartGameButton>
+      default:
+        return null;
+    }
+  }
+
   return (
     <Container>
       <CenterBlock>
         <GameStatus status={status.status} currentPlayer={currentPlayer} winner={status.matchWinner} />
-        {(status.status !== 'waitingToStart') &&
-          <Scoreboard winners={status.winners} />
-        }
+        <Scoreboard winners={status.winners} />
         <Game>
           {game.map((g, i) => (
             <Field
@@ -118,12 +130,9 @@ function TicTacToe() {
               playerStatus={(status.status === 'winMatch' || status.status === 'finished') && status.victory && status.victory[i] !== '' ? 'winner' : 'normal'} />
           ))}
         </Game>
-        {(status.status === 'winMatch' || status.status === 'drawMatch') &&
-          <NewGameButton onClick={newMatch}>New game</NewGameButton>}
-        {(status.status === 'waitingToStart') &&
-          <StartGameButton onClick={startGame}>Start</StartGameButton>}
-        {(status.status === 'finished') &&
-          <StartGameButton onClick={startGame}>Start a new Game</StartGameButton>}
+        <ButtonContainer>
+          <ButtonChoice />
+        </ButtonContainer>
       </CenterBlock>
     </Container>
   );
