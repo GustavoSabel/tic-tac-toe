@@ -1,4 +1,6 @@
 import { BoardType } from "../Types/BoardType";
+import { GameStatusType } from "../Types/GameStatusType";
+import { NonePlayerType } from "../Types/NonePlayerType";
 import { PlayerType } from "../Types/PlayerType";
 import api from "./api"
 
@@ -21,14 +23,17 @@ type PlateTokenArgs = {
 };
 
 type PlaceNewTokenResponse = {
-  board: BoardType
-  match: number
-  victory: BoardType
+  namePayerO: string
+  namePlayerX: string
   nextPlayer: PlayerType
-  endOfGame: boolean
-  finalWinner: PlayerType
-  draw: boolean
+  victory: BoardType | null
+  match: number
+  board: BoardType
+  boardBeauty: string[]
   winners: PlayerType[]
+  matchWinner: PlayerType | null
+  finalWinner: PlayerType | NonePlayerType
+  status: GameStatusType
 }
 
 const gameService = {

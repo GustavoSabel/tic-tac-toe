@@ -1,9 +1,10 @@
 import { BadRequest } from 'http-errors';
 import Game from '@src/domain/entities/game.entity';
-import { PlayerType } from '@src/types/PlayerType';
+import { NonePlayerType, PlayerType } from '@src/types/PlayerType';
 import Movement from '@src/domain/entities/movement.entity';
 import Board from '@src/domain/valueObjects/Board';
 import GameRepository from '../../repositories/GameRepository';
+import { BoardType } from '@src/types/BoardType';
 
 type placeTokenRequest = {
   gameId: number;
@@ -12,10 +13,24 @@ type placeTokenRequest = {
   col: number;
 };
 
+type Response = {
+  namePayerO: string
+  namePlayerX: string
+  nextPlayer: PlayerType
+  victory: BoardType | null
+  match: number
+  board: BoardType
+  boardBeauty: string[]
+  winners: PlayerType[]
+  matchWinner: PlayerType | null
+  finalWinner: PlayerType | NonePlayerType
+  status: 'playing' | 'winMatch' | 'drawMatch' | 'finished'
+}
+
 export default class PlaceToken {
   constructor(private gameRepository: GameRepository) { }
     
-  async execute(args: placeTokenRequest) {
+  async execute(args: placeTokenRequest) : Promise<Response> {
     const game = await this.gameRepository.find(args.gameId);
     if (game.endTime) {
       throw new BadRequest('This game is finished. Please create a new game');
@@ -31,8 +46,6 @@ export default class PlaceToken {
     if (args.row < 0 || args.row > 2) {
       throw new BadRequest('Invalid row position');
     }
-
-    const currentPlayer = args.player === 'O' ? game.playerO : game.playerX;
 
     if (game.lastPlayed === args.player) {
       throw new BadRequest(`Player ${args.player} already made a move`);
@@ -53,25 +66,23 @@ export default class PlaceToken {
     movement.player = args.player;
     game.movements.push(movement);
 
+    let matchWinner: PlayerType | null = null
     let nextPlayer: PlayerType
-    let message = '';
-    let draw = false;
+    let status: 'playing' | 'winMatch' | 'drawMatch' | 'finished'
     const victory = board.checkIfPlayerHasAVictory(args.player);
     if (victory) {
       game.newGame();
       game.winners.push(args.player);
-      message = `Player ${currentPlayer.name} wins`;
+      matchWinner = args.player
       nextPlayer = game.playerStartedCurrentMatch
+      status = 'winMatch';
     } else if (this.allBoardIsFilled(game)) {
       game.newGame();
-      message = 'The game tied';
       nextPlayer = game.playerStartedCurrentMatch
-      draw = true;
+      status = 'drawMatch';
     } else {
-      message = `Player ${currentPlayer.name} placed the token in row ${
-        args.row + 1
-      } and col ${args.col + 1}`;
       nextPlayer = args.player === 'O' ? 'X' : 'O'
+      status = 'playing';
     }
 
     const numberOfVictoriesOfCurrentPlayer = this.calcNumberOfVictotiesOfPlayer(
@@ -81,24 +92,23 @@ export default class PlaceToken {
     if (numberOfVictoriesOfCurrentPlayer >= game.neededToWin) {
       game.endTime = new Date();
       game.finalWinner = args.player;
-      message = `PLAYER ${currentPlayer.name.toUpperCase()}`;
+      status = 'finished';
     }
 
     await this.gameRepository.save(game)    
 
     return {
-      message,
-      playerO: game.playerO.name,
-      playerX: game.playerX.name,
+      namePayerO: game.playerO.name,
+      namePlayerX: game.playerX.name,
       nextPlayer,
-      victory: victory?.toBoard(args.player).BoardArray,
+      victory: victory?.toBoard(args.player).BoardArray ?? null,
       match: game.currentMatch,
       board: newBoard.BoardArray,
       boardBeauty: newBoard.beautifyBoard(),
       winners: game.winners,
-      endOfGame: !!game.endTime,
+      status,
       finalWinner: game.finalWinner,
-      draw,
+      matchWinner: matchWinner,
     };
   }
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import gameService from "../../Services/gameService";
 import playerService, { PlayerContract } from "../../Services/playerService";
 import Field from "../Field";
@@ -8,12 +8,15 @@ import { GameStatusType } from "../../Types/GameStatusType";
 import { PlayerType } from "../../Types/PlayerType";
 import { CenterBlock, Container, Game, NewGameButton, StartGameButton } from "./style";
 import Scoreboard from "../Scoreboard";
+import { NonePlayerType } from "../../Types/NonePlayerType";
 
 type Status = {
   status: GameStatusType
-  winner: PlayerType | null,
+  matchWinner: PlayerType | null,
+  finalWinner: PlayerType | NonePlayerType,
   victory: BoardType | null,
   winners: PlayerType[],
+
 }
 const emptyGame: BoardType = [
   '', '', '',
@@ -28,8 +31,9 @@ function TicTacToe() {
   const [gameId, setGameId] = useState<number>()
   const [status, setStatus] = useState<Status>({
     status: 'waitingToStart',
-    winner: null,
+    matchWinner: null,
     victory: null,
+    finalWinner: '',
     winners: [],
   })
   const [game, setGame] = useState<BoardType>(emptyGame);
@@ -44,45 +48,46 @@ function TicTacToe() {
         });
         setGame(response.board)
         setCurrentPlayer(response.nextPlayer)
-        if (response.victory) {
-          setStatus({
-            status: 'playerWin',
-            winner: currentPlayer,
-            victory: response.victory,
-            winners: response.winners,
-          })
-        } else if (response.draw) {
-          setStatus(current => ({
-            ...current,
-            status: 'draw',
-            winners: response.winners,
-          }))
-        }
-
-        if (response.endOfGame) {
-          // TODO: Improve that
-          alert(`Player ${response.finalWinner} win 3 matches!! He wins the game`)
-        }
+        setStatus({
+          status: response.status,
+          matchWinner: response.matchWinner,
+          victory: response.victory,
+          winners: response.winners,
+          finalWinner: response.finalWinner,
+        })
       }
     }
   }
 
+  useEffect(() => {
+    const createPlayers = async () => {
+      const playerO = await playerService.create('Player O')
+      const playerX = await playerService.create('Player X')
+      setPlayerO(playerO)
+      setPlayerX(playerX)
+    }
+    createPlayers()
+  }, [])
+
+  useEffect(() => {
+    if (status.status === 'finished') {
+      alert(`${status.finalWinner} won the game!`)
+    }
+  }, [status])
+
   const startGame = async () => {
-    const playerO = await playerService.create('Player O')
-    const playerX = await playerService.create('Player X')
     const game = await gameService.newGame({
-      playerOId: playerO.id,
-      playerXId: playerX.id,
+      playerOId: playerO!.id,
+      playerXId: playerX!.id,
     })
-    setPlayerO(playerO)
-    setPlayerX(playerX)
     setGameId(game.gameId)
     setGame(emptyGame)
     setStatus({
       status: 'playing',
-      winner: null,
-      victory: null,
       winners: [],
+      victory: null,
+      matchWinner: null,
+      finalWinner: '',
     })
   }
 
@@ -91,7 +96,7 @@ function TicTacToe() {
     setStatus(old => ({
       ...old,
       status: 'playing',
-      winner: null,
+      matchWinner: null,
       victory: null,
     }))
   }
@@ -99,7 +104,7 @@ function TicTacToe() {
   return (
     <Container>
       <CenterBlock>
-        <GameStatus status={status.status} currentPlayer={currentPlayer} winner={status.winner} />
+        <GameStatus status={status.status} currentPlayer={currentPlayer} winner={status.matchWinner} />
         {(status.status !== 'waitingToStart') &&
           <Scoreboard winners={status.winners} />
         }
@@ -108,13 +113,15 @@ function TicTacToe() {
             <Field
               onClick={() => click(i)}
               player={g === '' ? undefined : g}
-              playerStatus={status.status === 'playerWin' && status.victory && status.victory[i] !== '' ? 'winner' : 'normal'} />
+              playerStatus={status.status === 'winMatch' && status.victory && status.victory[i] !== '' ? 'winner' : 'normal'} />
           ))}
         </Game>
-        {(status.status === 'playerWin' || status.status === 'draw') &&
+        {(status.status === 'winMatch' || status.status === 'drawMatch') &&
           <NewGameButton onClick={newMatch}>New game</NewGameButton>}
         {(status.status === 'waitingToStart') &&
           <StartGameButton onClick={startGame}>Start</StartGameButton>}
+        {(status.status === 'finished') &&
+          <StartGameButton onClick={startGame}>Start a new Game</StartGameButton>}
       </CenterBlock>
     </Container>
   );

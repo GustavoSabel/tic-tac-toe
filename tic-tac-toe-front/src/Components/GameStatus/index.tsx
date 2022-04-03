@@ -16,12 +16,12 @@ function GameStatus({ status, currentPlayer, winner }: Args) {
         <StyledPlayer player={currentPlayer} />
       </>}
       
-      {status === 'playerWin' && <>
+      {status === 'winMatch' && <>
         <p>Winner:</p>
         <StyledPlayer player={winner!} />
       </>}
       
-      {status === 'draw' && <>
+      {status === 'drawMatch' && <>
         <p>Draw:</p>
         <StyledPlayer player='O' />
         <StyledPlayer player='X' />
