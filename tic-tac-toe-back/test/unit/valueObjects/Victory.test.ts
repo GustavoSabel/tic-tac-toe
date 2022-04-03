@@ -1,5 +1,5 @@
-import Board from '@src/valueObjects/Board';
-import { AllVictories } from '@src/valueObjects/Victory';
+import Board from '@src/domain/valueObjects/Board';
+import { AllVictories } from '@src/domain/valueObjects/Victory';
 import { expect } from '@test/test_helper';
 
 describe('Board', function () {

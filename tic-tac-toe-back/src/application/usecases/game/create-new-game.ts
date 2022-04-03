@@ -1,4 +1,4 @@
-import Game from '@src/entities/game.entity';
+import Game from '@src/domain/entities/game.entity';
 import GameRepository from '../../repositories/GameRepository';
 import PlayerRepository from '../../repositories/PlayerRepository';
 

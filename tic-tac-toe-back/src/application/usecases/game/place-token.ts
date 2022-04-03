@@ -1,8 +1,8 @@
 import { BadRequest } from 'http-errors';
-import Game from '@src/entities/game.entity';
+import Game from '@src/domain/entities/game.entity';
 import { PlayerType } from '@src/types/PlayerType';
-import Movement from '@src/entities/movement.entity';
-import Board from '@src/valueObjects/Board';
+import Movement from '@src/domain/entities/movement.entity';
+import Board from '@src/domain/valueObjects/Board';
 import GameRepository from '../../repositories/GameRepository';
 
 type placeTokenRequest = {

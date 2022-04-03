@@ -1,4 +1,4 @@
-import Board from '@src/valueObjects/Board';
+import Board from '@src/domain/valueObjects/Board';
 import { expect } from '@test/test_helper';
 
 describe('Board', function () {

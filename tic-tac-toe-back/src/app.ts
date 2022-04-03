@@ -11,9 +11,9 @@ import express from 'express'
 import cors from 'cors'
 import { ValidationError } from './core/errors/ValidationError';
 
-export const createServer = () => {
-  dotenv.config();
+dotenv.config({ debug: true });
 
+const createServer = () => {
   const port = process.env.SERVER_PORT || 3001;
 
   const app: Application = express();

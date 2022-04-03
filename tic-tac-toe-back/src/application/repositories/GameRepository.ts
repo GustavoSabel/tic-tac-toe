@@ -1,4 +1,4 @@
-import Game from '@src/entities/game.entity';
+import Game from '@src/domain/entities/game.entity';
 
 export default class GameRepository {
   async find(id: number) {

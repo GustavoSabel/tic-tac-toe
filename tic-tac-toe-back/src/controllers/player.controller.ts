@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { PlayerDTO } from '@src/dtos/player.dto';
+import { PlayerDTO } from '@src/application/dtos/player.dto';
 import { newPlayerValidator } from '@src/validators/player.validator';
 import { CreateNewPlayer } from '@src/application/usecases/player/create-new-player';
 import PlayerRepository from '@src/application/repositories/PlayerRepository';

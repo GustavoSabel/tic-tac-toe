@@ -1,4 +1,4 @@
-import Player from '@src/entities/player.entity';
+import Player from '@src/domain/entities/player.entity';
 import PlayerRepository from '../../repositories/PlayerRepository';
 
 type CreateNewPlayerRequest = {

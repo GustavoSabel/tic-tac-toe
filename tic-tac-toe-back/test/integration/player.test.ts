@@ -13,6 +13,7 @@ describe('Player', function () {
       .request(app)
       .post('/player')
       .send({ name: 'Joao' });
+    console.log(res.body);
     expect(res).to.have.status(200);
     expect(res.body.name).to.be.equal('Joao')
     expect(res.body.id).to.be.not.null
