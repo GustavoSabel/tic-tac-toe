@@ -1,7 +1,6 @@
-import Player from "../Player";
 import { GameStatusType } from "../../Types/GameStatusType";
 import { PlayerType } from "../../Types/PlayerType";
-import { Container } from "./style";
+import { Container, StyledPlayer } from "./style";
 
 type Args = {
   status: GameStatusType
@@ -14,18 +13,18 @@ function GameStatus({ status, currentPlayer, winner }: Args) {
     <Container>
       {status === 'playing' && <>
         <p>Current Player:</p>
-        <Player player={currentPlayer} />
+        <StyledPlayer player={currentPlayer} />
       </>}
       
       {status === 'playerWin' && <>
         <p>Winner:</p>
-        <Player player={winner!} />
+        <StyledPlayer player={winner!} />
       </>}
       
       {status === 'draw' && <>
         <p>Draw:</p>
-        <Player player={'O'} />
-        <Player player={'X'} />
+        <StyledPlayer player='O' />
+        <StyledPlayer player='X' />
       </>}
     </Container>
   );

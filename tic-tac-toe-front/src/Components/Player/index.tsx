@@ -5,10 +5,11 @@ import { PlayerStatus } from "../../Types/PlayerStatus";
 type Args = {
   player: PlayerType
   status?: PlayerStatus
+  className?: string
 }
-function Player({ player, status = 'normal' }: Args) {
+function Player({ player, status = 'normal', className }: Args) {
   return (
-    <Container>
+    <Container className={className}>
       {player === 'O' 
         ? <PlayerO status={status} /> 
         : <PlayerX status={status} />}

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { styleColors } from '../../styles/styleColors';
+import Player from '../Player';
 
 export const Container = styled.div`
   display: flex;
@@ -11,3 +12,9 @@ export const Container = styled.div`
     font-size: 40px;
   }
 `;
+
+
+export const StyledPlayer = styled(Player)`
+  width: 50px;
+  height: 50px;
+`

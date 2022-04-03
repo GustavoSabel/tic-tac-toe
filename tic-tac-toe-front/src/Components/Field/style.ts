@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { styleColors } from '../../styles/styleColors';
 import { PlayerStatus } from '../../Types/PlayerStatus';
 import { PlayerType } from '../../Types/PlayerType';
+import Player from '../Player';
 
 type PlayerProps = {
   status: PlayerStatus
@@ -17,3 +18,9 @@ export const Container = styled.div<PlayerProps>`
   justify-content: center;
   font-size: 40px;
 `;
+
+
+export const StyledPlayer = styled(Player)`
+  max-width: 50px;
+  max-height: 50px;
+`

@@ -14,6 +14,7 @@ export const CenterBlock = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 8px;
 `;
 
 export const Game = styled.div`
