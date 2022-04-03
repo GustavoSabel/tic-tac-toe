@@ -70,9 +70,11 @@ function TicTacToe() {
   }, [])
 
   useEffect(() => {
-    if (status.status === 'finished') {
-      alert(`${status.finalWinner} won the game!`)
-    }
+    setTimeout(() => {
+      if (status.status === 'finished') {
+        alert(`${status.finalWinner} won the game!`)
+      }
+    })
   }, [status])
 
   const startGame = async () => {
@@ -113,7 +115,7 @@ function TicTacToe() {
             <Field
               onClick={() => click(i)}
               player={g === '' ? undefined : g}
-              playerStatus={status.status === 'winMatch' && status.victory && status.victory[i] !== '' ? 'winner' : 'normal'} />
+              playerStatus={(status.status === 'winMatch' || status.status === 'finished') && status.victory && status.victory[i] !== '' ? 'winner' : 'normal'} />
           ))}
         </Game>
         {(status.status === 'winMatch' || status.status === 'drawMatch') &&
