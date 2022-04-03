@@ -27,6 +27,7 @@ type PlaceNewTokenResponse = {
   nextPlayer: PlayerType
   endOfGame: boolean
   finalWinner: PlayerType
+  draw: boolean
 }
 
 const gameService = {

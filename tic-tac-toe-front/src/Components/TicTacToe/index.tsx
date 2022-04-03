@@ -13,6 +13,11 @@ type Status = {
   winner: PlayerType | null,
   victory: BoardType | null,
 }
+const emptyGame: BoardType = [
+  '', '', '',
+  '', '', '',
+  '', '', '',
+]
 
 function TicTacToe() {
   const [currentPlayer, setCurrentPlayer] = useState<PlayerType>('O')
@@ -24,11 +29,7 @@ function TicTacToe() {
     winner: null,
     victory: null
   })
-  const [game, setGame] = useState<BoardType>([
-    '', '', '',
-    '', '', '',
-    '', '', '',
-  ]);
+  const [game, setGame] = useState<BoardType>(emptyGame);
 
   const click = async (index: number) => {
     if (status.status === 'playing') {
@@ -45,6 +46,12 @@ function TicTacToe() {
             status: 'playerWin',
             winner: currentPlayer,
             victory: response.victory
+          })
+        } else if(response.draw) {
+          setStatus({
+            status: 'draw',
+            winner: null,
+            victory: null
           })
         }
 
@@ -75,11 +82,7 @@ function TicTacToe() {
   }
 
   const newGame = () => {
-    setGame([
-      '', '', '',
-      '', '', '',
-      '', '', '',
-    ])
+    setGame(emptyGame)
     setStatus({
       status: 'playing',
       winner: null,

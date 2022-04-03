@@ -55,6 +55,7 @@ export default class PlaceToken {
 
     let nextPlayer: PlayerType
     let message = '';
+    let draw = false;
     const victory = board.checkIfPlayerHasAVictory(args.player);
     if (victory) {
       game.newGame();
@@ -65,6 +66,7 @@ export default class PlaceToken {
       game.newGame();
       message = 'The game tied';
       nextPlayer = game.playerStartedCurrentMatch
+      draw = true;
     } else {
       message = `Player ${currentPlayer.name} placed the token in row ${
         args.row + 1
@@ -96,6 +98,7 @@ export default class PlaceToken {
       winners: game.winners,
       endOfGame: !!game.endTime,
       finalWinner: game.finalWinner,
+      draw,
     };
   }
 
